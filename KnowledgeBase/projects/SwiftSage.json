@@ -1,0 +1,15 @@
+{
+  "description" : "Swift-based AI assistant project with GPT integration",
+  "name" : "SwiftSage",
+  "lastModified" : "2025-06-01T18:34:31Z",
+  "status" : "Active",
+  "path" : "\/Users\/rogers\/GitHub\/SwiftSage",
+  "currentTasks" : [
+
+  ],
+  "techStack" : [
+    "Xcode Project",
+    "Xcode Workspace",
+    "SwiftUI"
+  ]
+}

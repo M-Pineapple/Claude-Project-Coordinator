@@ -1,0 +1,14 @@
+{
+  "status" : "Active",
+  "path" : "\/Users\/rogers\/GitHub\/ClaudeXcode",
+  "lastModified" : "2025-06-01T18:35:08Z",
+  "name" : "ClaudeXcode",
+  "techStack" : [
+    "Xcode Project",
+    "SwiftUI"
+  ],
+  "description" : "Xcode extension for Claude AI integration",
+  "currentTasks" : [
+
+  ]
+}
