@@ -21,7 +21,7 @@ chmod +x build.sh
 ```json
 {
   "project-coordinator": {
-    "command": "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/release/project-coordinator",
+    "command": "/Users/yourusername/GitHub/Claude-Project-Coordinator/.build/release/project-coordinator",
     "args": ["--port", "3000"]
   }
 }
