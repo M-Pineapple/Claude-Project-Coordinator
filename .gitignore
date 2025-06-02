@@ -7,3 +7,5 @@ KnowledgeBase/projects/*-summary.md
 # User-specific Xcode data
 .swiftpm/xcode/xcuserdata/
 xcuserdata/
+.build/
+.DS_Store

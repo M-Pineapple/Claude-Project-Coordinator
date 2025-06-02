@@ -1,2 +1,10 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Linguist overrides
+*.swift linguist-language=Swift
+*.md linguist-documentation
+*.sh linguist-language=Shell
+
+# Ignore build artifacts
+.build/* linguist-generated
+*.pcm linguist-generated
+*.swiftmodule linguist-generated
+*.o linguist-generated

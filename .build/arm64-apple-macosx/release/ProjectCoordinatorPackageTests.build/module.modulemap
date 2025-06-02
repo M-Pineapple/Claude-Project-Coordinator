@@ -1,4 +1,0 @@
-module ProjectCoordinatorPackageTests {
-    header "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.build/ProjectCoordinatorPackageTests-Swift.h"
-    requires objc
-}
