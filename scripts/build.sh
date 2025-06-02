@@ -19,10 +19,12 @@ if [ -f ".build/release/project-coordinator" ]; then
     echo ""
     echo '{
   "project-coordinator": {
-    "command": "'$(pwd)'/.build/release/project-coordinator",
+    "command": "<path-to-repo>/.build/release/project-coordinator",
     "args": ["--port", "3000"]
   }
 }'
+    echo ""
+    echo "Replace <path-to-repo> with your actual repository path"
     echo ""
     echo "2. Restart Claude Desktop"
     echo "3. Start using commands like 'list my projects' or 'add a new project'"
