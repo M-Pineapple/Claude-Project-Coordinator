@@ -157,7 +157,7 @@ The coordinator will search across all your projects for authentication implemen
 ### MCP Server Not Connecting
 1. Check if the build was successful:
    ```bash
-   ls -la /Users/rogers/GitHub/Claude-Project-Coordinator/.build/release/
+   ls -la /Users/yourusername/GitHub/Claude-Project-Coordinator/.build/release/
    ```
 2. Verify the path in Claude Desktop settings matches exactly
 3. Check Console.app for error messages
