@@ -1,38 +1,8 @@
 # Project Coordinator Index
 
-Last Updated: 1 Jun 2025 at 8:36 PM
-
 ## Active Projects
-### BalloonPop
-- **Location**: `/Users/rogers/GitHub/BalloonPop`
-- **Tech Stack**: Xcode Project, SwiftUI
-- **Status**: Active
-- **Last Modified**: 1 Jun 2025 at 8:34 PM
 
-### ClaudeXcode
-- **Location**: `/Users/rogers/GitHub/ClaudeXcode`
-- **Tech Stack**: Xcode Project, SwiftUI
-- **Status**: Active
-- **Last Modified**: 1 Jun 2025 at 8:35 PM
-
-### CryptoExitStrategyDashboard
-- **Location**: `/Users/rogers/GitHub/CryptoExitStrategyDashboard`
-- **Tech Stack**: Xcode Project, SwiftUI
-- **Status**: Active
-- **Last Modified**: 1 Jun 2025 at 8:36 PM
-
-### SwiftSage
-- **Location**: `/Users/rogers/GitHub/SwiftSage`
-- **Tech Stack**: Xcode Project, Xcode Workspace, SwiftUI
-- **Status**: Active
-- **Last Modified**: 1 Jun 2025 at 8:34 PM
-
-### TestApp
-- **Location**: `~/Developer/TestApp`
-- **Tech Stack**: Swift
-- **Status**: Testing Complete - MCP Server Validated
-- **Last Modified**: 1 Jun 2025 at 8:29 PM
-
+<!-- Projects will be automatically updated here -->
 
 ## Common Patterns & Solutions
 

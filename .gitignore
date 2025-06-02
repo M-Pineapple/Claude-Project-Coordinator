@@ -1,0 +1,9 @@
+
+# Personal project data - NEVER commit these
+KnowledgeBase/projects/*.json
+KnowledgeBase/projects/*-summary.md
+!KnowledgeBase/projects/.gitkeep
+
+# User-specific Xcode data
+.swiftpm/xcode/xcuserdata/
+xcuserdata/

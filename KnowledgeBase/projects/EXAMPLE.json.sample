@@ -1,0 +1,9 @@
+{
+  "name": "ExampleWeatherApp",
+  "path": "~/Developer/ExampleWeatherApp",
+  "description": "Example iOS weather application using SwiftUI and Core Location",
+  "techStack": ["SwiftUI", "Core Location", "Async/Await"],
+  "status": "In Development",
+  "notes": "This is an example project file to show the data structure. Your actual projects will be stored here but are gitignored for privacy.",
+  "lastUpdated": "2025-06-01T18:00:00Z"
+}

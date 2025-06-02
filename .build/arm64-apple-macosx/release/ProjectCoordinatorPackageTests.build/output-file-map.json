@@ -1,0 +1,12 @@
+{
+  "": {
+    "dependencies": "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.build/ProjectCoordinatorPackageTests.d",
+    "object": "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.build/ProjectCoordinatorPackageTests.o",
+    "swift-dependencies": "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.build/master.swiftdeps"
+  },
+  "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.derived/runner.swift": {
+    "object": "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.build/runner.swiftdeps"
+  }
+}

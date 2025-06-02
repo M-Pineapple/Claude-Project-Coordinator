@@ -1,0 +1,659 @@
+{
+  "builtTestProducts" : [
+    {
+      "binaryPath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.xctest/Contents/MacOS/ProjectCoordinatorPackageTests",
+      "packagePath" : "/Users/rogers/GitHub/Claude-Project-Coordinator",
+      "productName" : "ProjectCoordinatorPackageTests"
+    }
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.ProjectCoordinator-arm64-apple-macosx15.0-release.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinator.build/sources",
+      "importPath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/Sources/ProjectCoordinator/MCPServer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/Sources/ProjectCoordinator/ProjectManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/Sources/ProjectCoordinator/main.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinator.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "ProjectCoordinator",
+      "moduleOutputPath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/Modules/ProjectCoordinator.swiftmodule",
+      "objects" : [
+        "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinator.build/MCPServer.swift.o",
+        "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinator.build/ProjectManager.swift.o",
+        "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinator.build/main.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-O",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-module-cache-path",
+        "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "ProjectCoordinator_main",
+        "-color-diagnostics",
+        "-swift-version",
+        "5",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "claude_project_coordinator"
+      ],
+      "outputFileMapPath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinator.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinator.build/MCPServer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinator.build/ProjectManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinator.build/main.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/Modules/ProjectCoordinator.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/rogers/GitHub/Claude-Project-Coordinator/Sources/ProjectCoordinator/MCPServer.swift",
+        "/Users/rogers/GitHub/Claude-Project-Coordinator/Sources/ProjectCoordinator/ProjectManager.swift",
+        "/Users/rogers/GitHub/Claude-Project-Coordinator/Sources/ProjectCoordinator/main.swift"
+      ],
+      "tempsPath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinator.build",
+      "wholeModuleOptimization" : true
+    },
+    "C.ProjectCoordinatorPackageTests-arm64-apple-macosx15.0-release.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.build/sources",
+      "importPath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.derived/runner.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/Modules/ProjectCoordinatorTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "ProjectCoordinatorPackageTests",
+      "moduleOutputPath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/Modules/ProjectCoordinatorPackageTests.swiftmodule",
+      "objects" : [
+        "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.build/runner.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-O",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-module-cache-path",
+        "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.build/ProjectCoordinatorPackageTests-Swift.h",
+        "-color-diagnostics",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "claude_project_coordinator"
+      ],
+      "outputFileMapPath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/Modules/ProjectCoordinatorPackageTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.derived/runner.swift"
+      ],
+      "tempsPath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.build",
+      "wholeModuleOptimization" : true
+    },
+    "C.ProjectCoordinatorTests-arm64-apple-macosx15.0-release.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorTests.build/sources",
+      "importPath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/Tests/ProjectCoordinatorTests/ProjectCoordinatorTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/project-coordinator"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "ProjectCoordinatorTests",
+      "moduleOutputPath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/Modules/ProjectCoordinatorTests.swiftmodule",
+      "objects" : [
+        "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorTests.build/ProjectCoordinatorTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-index-store-path",
+        "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/index/store",
+        "-O",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-module-cache-path",
+        "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-color-diagnostics",
+        "-swift-version",
+        "5",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "claude_project_coordinator"
+      ],
+      "outputFileMapPath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorTests.build/ProjectCoordinatorTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/Modules/ProjectCoordinatorTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/rogers/GitHub/Claude-Project-Coordinator/Tests/ProjectCoordinatorTests/ProjectCoordinatorTests.swift"
+      ],
+      "tempsPath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorTests.build",
+      "wholeModuleOptimization" : true
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "ProjectCoordinator" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "ProjectCoordinator",
+      "-package-name",
+      "claude_project_coordinator",
+      "-whole-module-optimization",
+      "-num-threads",
+      "10",
+      "-c",
+      "/Users/rogers/GitHub/Claude-Project-Coordinator/Sources/ProjectCoordinator/MCPServer.swift",
+      "/Users/rogers/GitHub/Claude-Project-Coordinator/Sources/ProjectCoordinator/ProjectManager.swift",
+      "/Users/rogers/GitHub/Claude-Project-Coordinator/Sources/ProjectCoordinator/main.swift",
+      "-I",
+      "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-O",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-module-cache-path",
+      "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "ProjectCoordinator_main",
+      "-color-diagnostics",
+      "-swift-version",
+      "5",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "claude_project_coordinator",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "ProjectCoordinatorPackageTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "ProjectCoordinatorPackageTests",
+      "-package-name",
+      "claude_project_coordinator",
+      "-whole-module-optimization",
+      "-num-threads",
+      "10",
+      "-c",
+      "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.derived/runner.swift",
+      "-I",
+      "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-O",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-module-cache-path",
+      "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.build/ProjectCoordinatorPackageTests-Swift.h",
+      "-color-diagnostics",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "claude_project_coordinator",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "ProjectCoordinatorTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "ProjectCoordinatorTests",
+      "-package-name",
+      "claude_project_coordinator",
+      "-whole-module-optimization",
+      "-num-threads",
+      "10",
+      "-c",
+      "/Users/rogers/GitHub/Claude-Project-Coordinator/Tests/ProjectCoordinatorTests/ProjectCoordinatorTests.swift",
+      "-I",
+      "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-index-store-path",
+      "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/index/store",
+      "-O",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-module-cache-path",
+      "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-color-diagnostics",
+      "-swift-version",
+      "5",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "claude_project_coordinator",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "ProjectCoordinator" : [
+
+    ],
+    "ProjectCoordinatorPackageTests" : [
+      "ProjectCoordinatorTests",
+      "ProjectCoordinator"
+    ],
+    "ProjectCoordinatorTests" : [
+      "ProjectCoordinator"
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+    "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.derived/runner.swift" : {
+      "inputs" : [
+
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.derived/runner.swift"
+        }
+      ]
+    }
+  },
+  "traitConfiguration" : {
+    "enableAllTraits" : false
+  },
+  "writeCommands" : {
+    "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinator.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/Sources/ProjectCoordinator/MCPServer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/Sources/ProjectCoordinator/ProjectManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/Sources/ProjectCoordinator/main.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinator.build/sources"
+    },
+    "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.derived/runner.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.build/sources"
+    },
+    "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinator.build/MCPServer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinator.build/ProjectManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinator.build/main.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorTests.build/ProjectCoordinatorTests.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorPackageTests.product/Objects.LinkFileList"
+    },
+    "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/Tests/ProjectCoordinatorTests/ProjectCoordinatorTests.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinatorTests.build/sources"
+    },
+    "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/project-coordinator.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinator.build/MCPServer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinator.build/ProjectManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/ProjectCoordinator.build/main.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/project-coordinator.product/Objects.LinkFileList"
+    },
+    "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/rogers/GitHub/Claude-Project-Coordinator/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+    }
+  }
+}

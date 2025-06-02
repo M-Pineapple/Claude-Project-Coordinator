@@ -1,0 +1,8 @@
+version: "Apple Swift version 6.1.2 (swiftlang-6.1.2.1.2 clang-1700.0.13.5)"
+options: "c78c4b0f2baff63f19ca6ef18458f84f799157aff1299161ee41cf9059fddb43"
+build_start_time: [1748843910, 252948000]
+build_end_time: [1748843915, 328989000]
+inputs:
+  "/Users/rogers/GitHub/Claude-Project-Coordinator/Sources/ProjectCoordinator/MCPServer.swift": [1748802470, 619731903]
+  "/Users/rogers/GitHub/Claude-Project-Coordinator/Sources/ProjectCoordinator/ProjectManager.swift": [1748800056, 82183003]
+  "/Users/rogers/GitHub/Claude-Project-Coordinator/Sources/ProjectCoordinator/main.swift": [1748802295, 37377715]
