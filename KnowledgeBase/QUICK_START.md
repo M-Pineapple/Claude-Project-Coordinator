@@ -6,7 +6,7 @@
 
 Open Terminal and navigate to the project directory:
 ```bash
-cd /Users/rogers/GitHub/Claude-Project-Coordinator
+cd /Users/yourusername/GitHub/Claude-Project-Coordinator
 chmod +x build.sh
 ./build.sh
 ```
