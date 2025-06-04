@@ -20,7 +20,7 @@ if [ -f ".build/release/project-coordinator" ]; then
     echo '{
   "project-coordinator": {
     "command": "<path-to-repo>/.build/release/project-coordinator",
-    "args": ["--port", "3000"]
+    "args": []
   }
 }'
     echo ""

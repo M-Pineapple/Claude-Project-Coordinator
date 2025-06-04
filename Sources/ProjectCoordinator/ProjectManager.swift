@@ -21,7 +21,10 @@ actor ProjectManager {
     private let fileManager = FileManager.default
     
     init() {
-        self.knowledgeBasePath = "/Users/rogers/GitHub/Claude-Project-Coordinator/KnowledgeBase"
+        // Get the executable's directory and construct KnowledgeBase path relative to it
+        let executablePath = Bundle.main.executablePath ?? ""
+        let executableDir = URL(fileURLWithPath: executablePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().path
+        self.knowledgeBasePath = "\(executableDir)/KnowledgeBase"
     }
     
     func initialize() async {
@@ -186,10 +189,13 @@ actor ProjectManager {
         let projectsPath = "\(knowledgeBasePath)/projects"
         guard let files = try? fileManager.contentsOfDirectory(atPath: projectsPath) else { return }
         
-        for file in files where file.hasSuffix(".json") {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        
+        for file in files where file.hasSuffix(".json") && !file.contains("EXAMPLE") {
             let filePath = "\(projectsPath)/\(file)"
             if let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)),
-               let project = try? JSONDecoder().decode(Project.self, from: data) {
+               let project = try? decoder.decode(Project.self, from: data) {
                 projects[project.name] = project
             }
         }
