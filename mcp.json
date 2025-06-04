@@ -2,7 +2,7 @@
   "name": "project-coordinator",
   "version": "1.0.0",
   "description": "MCP server for managing and coordinating Xcode/Swift projects",
-  "author": "Your Name",
+  "author": "Pineapple",
   "license": "MIT",
   "build": {
     "command": "swift build -c release"
