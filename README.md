@@ -20,6 +20,7 @@ An MCP (Model Context Protocol) server for managing and coordinating multiple Xc
 
 1. Clone the repository:
 ```bash
+
 git clone https://github.com/M-Pineapple/Claude-Project-Coordinator.git
 cd Claude-Project-Coordinator
 ```
