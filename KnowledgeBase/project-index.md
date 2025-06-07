@@ -1,37 +1,37 @@
 # Project Coordinator Index
 
-Last Updated: 4 Jun 2025 at 11:35 PM
+Last Updated: 7 Jun 2025 at 9:14 AM
 
 ## Active Projects
-### BalloonPop
-- **Location**: `/Users/rogers/GitHub/BalloonPop`
-- **Tech Stack**: Xcode Project, SwiftUI
-- **Status**: Complete
-- **Last Modified**: 2 Jun 2025 at 12:09 PM
+### CPC-Backup-20250603
+- **Location**: `/Users/rogers/GitHub/MCP_Backup_20250603_131240/Claude-Project-Coordinator-backup`
+- **Tech Stack**: Swift Package Manager, SwiftUI
+- **Status**: Archive - Backup Only
+- **Last Modified**: 5 Jun 2025 at 9:30 AM
 
 ### Chronos
 - **Location**: `/Users/rogers/GitHub/Chronos`
 - **Tech Stack**: Xcode Project, SwiftUI
 - **Status**: Active Development
-- **Last Modified**: 2 Jun 2025 at 12:09 PM
+- **Last Modified**: 5 Jun 2025 at 9:36 AM
 
 ### Claude-Project-Coordinator
 - **Location**: `/Users/rogers/GitHub/Claude-Project-Coordinator`
 - **Tech Stack**: Swift Package Manager, SwiftUI
-- **Status**: Complete - Published
-- **Last Modified**: 2 Jun 2025 at 12:14 PM
+- **Status**: 🎉 v1.2.0 Security Release - Successfully Published to GitHub!
+- **Last Modified**: 7 Jun 2025 at 9:14 AM
 
 ### Claude-Project-Coordinator-GitHub
 - **Location**: `/Users/rogers/GitHub/MCP Directory/Claude-Project-Coordinator`
 - **Tech Stack**: Swift Package Manager, SwiftUI
-- **Status**: Ready for final GitHub push - need to update README clone URL
-- **Last Modified**: 4 Jun 2025 at 11:35 PM
+- **Status**: Preparing v1.2.0 Security Release - Phase 1 Complete
+- **Last Modified**: 7 Jun 2025 at 9:04 AM
 
 ### ClaudeXcode
 - **Location**: `/Users/rogers/GitHub/ClaudeXcode`
 - **Tech Stack**: Xcode Project, SwiftUI
 - **Status**: Active Development
-- **Last Modified**: 2 Jun 2025 at 12:09 PM
+- **Last Modified**: 5 Jun 2025 at 9:36 AM
 
 ### Crypto Exit Strategy
 - **Location**: `/Users/rogers/GitHub/CryptoExitStrategyDashboard/CryptoExitStrategyDashboard.xcodeproj`
@@ -48,20 +48,20 @@ Last Updated: 4 Jun 2025 at 11:35 PM
 ### CryptoExitStrategyMAC
 - **Location**: `/Users/rogers/GitHub/CryptoExitStrategyMAC`
 - **Tech Stack**: Xcode Project, SwiftUI
-- **Status**: Completed
-- **Last Modified**: 2 Jun 2025 at 5:27 PM
+- **Status**: Completed - Production Ready
+- **Last Modified**: 5 Jun 2025 at 9:35 AM
 
-### Exit Strategy
-- **Location**: `/Users/rogers/GitHub/Exit Strategy`
-- **Tech Stack**: Xcode Project, SwiftUI
-- **Status**: Active
-- **Last Modified**: 2 Jun 2025 at 12:07 PM
+### CryptoExitStrategyMAC-Final-Build
+- **Location**: `/Users/rogers/GitHub/CryptoExitStrategyMAC FiNAL II`
+- **Tech Stack**: Swift
+- **Status**: Completed - Production Build
+- **Last Modified**: 5 Jun 2025 at 9:29 AM
 
-### GPT-Pineapple
-- **Location**: `/Users/rogers/GitHub/GPT-Pineapple`
-- **Tech Stack**: Xcode Project, SwiftUI
+### CryptoExitStrategyMAC-Temp
+- **Location**: `/Users/rogers/GitHub/CryptoExitStrategyMAC-Temp`
+- **Tech Stack**: SwiftUI
 - **Status**: Active
-- **Last Modified**: 2 Jun 2025 at 12:07 PM
+- **Last Modified**: 5 Jun 2025 at 9:30 AM
 
 ### Local GPT
 - **Location**: `/Users/rogers/GitHub/Local GPT`
@@ -69,23 +69,17 @@ Last Updated: 4 Jun 2025 at 11:35 PM
 - **Status**: Active
 - **Last Modified**: 2 Jun 2025 at 12:08 PM
 
-### MCP Security Scanner
-- **Location**: `~/Development/mcp-security-scanner`
-- **Tech Stack**: Swift
-- **Status**: Enhanced with cloud + macOS security layers
-- **Last Modified**: 3 Jun 2025 at 9:02 AM
-
 ### MaCP Guard
 - **Location**: `/Users/rogers/GitHub/macp-guard`
 - **Tech Stack**: Swift Package Manager
-- **Status**: Path configuration updated
-- **Last Modified**: 3 Jun 2025 at 9:29 AM
+- **Status**: v0.3.0 Ready for Public Release
+- **Last Modified**: 5 Jun 2025 at 9:36 AM
 
-### Open AI Assistant
-- **Location**: `/Users/rogers/GitHub/Open AI Assistant`
-- **Tech Stack**: Xcode Project
-- **Status**: Active
-- **Last Modified**: 2 Jun 2025 at 12:08 PM
+### Member Berries Apple MCP
+- **Location**: `/Users/rogers/GitHub/member-berries-apple-mcp`
+- **Tech Stack**: Swift
+- **Status**: Active Development - v1.1.0 Released
+- **Last Modified**: 5 Jun 2025 at 6:34 PM
 
 ### Pine Calculator
 - **Location**: `/Users/rogers/GitHub/Pine Calculator`
@@ -93,65 +87,29 @@ Last Updated: 4 Jun 2025 at 11:35 PM
 - **Status**: Active
 - **Last Modified**: 2 Jun 2025 at 12:08 PM
 
-### PineApple Chat
-- **Location**: `/Users/rogers/GitHub/PineApple Chat`
-- **Tech Stack**: Xcode Project, SwiftUI
-- **Status**: Active
-- **Last Modified**: 2 Jun 2025 at 12:08 PM
-
-### PineApple Chat Suite
-- **Location**: `/Users/rogers/GitHub/PineApple Chat/PineApple Chat.xcodeproj`
-- **Tech Stack**: Xcode Workspace
-- **Status**: Active
-- **Last Modified**: 2 Jun 2025 at 11:16 PM
-
-### PineApple Final
-- **Location**: `/Users/rogers/GitHub/PineApple Final`
-- **Tech Stack**: Xcode Project, SwiftUI
-- **Status**: Active
-- **Last Modified**: 2 Jun 2025 at 12:08 PM
-
-### PineApple GPT
-- **Location**: `/Users/rogers/GitHub/PineApple GPT`
-- **Tech Stack**: Xcode Project, SwiftUI
-- **Status**: Active
-- **Last Modified**: 2 Jun 2025 at 12:09 PM
-
-### SwiftSage
-- **Location**: `/Users/rogers/GitHub/SwiftSage`
-- **Tech Stack**: Xcode Project, Xcode Workspace, SwiftUI
-- **Status**: Featured Project
-- **Last Modified**: 2 Jun 2025 at 12:10 PM
-
-### Test-CPC
-- **Location**: `/tmp/test-cpc`
-- **Tech Stack**: Swift
-- **Status**: Active
-- **Last Modified**: 4 Jun 2025 at 8:33 PM
-
-### Web PineApple GPT
-- **Location**: `/Users/rogers/GitHub/Web PineApple GPT`
-- **Tech Stack**: Xcode Project, SwiftUI
-- **Status**: Active
-- **Last Modified**: 2 Jun 2025 at 12:09 PM
-
 ### WebHood
 - **Location**: `/Users/rogers/GitHub/WebHood/WebHood.xcodeproj`
 - **Tech Stack**: Xcode Workspace
-- **Status**: Active
-- **Last Modified**: 2 Jun 2025 at 11:16 PM
+- **Status**: Completed - Full Technology Detection Working
+- **Last Modified**: 5 Jun 2025 at 9:35 AM
+
+### iWork MCP
+- **Location**: `/Users/rogers/GitHub/iwork-mcp`
+- **Tech Stack**: Swift
+- **Status**: Archived - Technical Issues
+- **Last Modified**: 6 Jun 2025 at 3:21 PM
 
 ### macp-guard
 - **Location**: `/Users/rogers/GitHub/macp-guard`
 - **Tech Stack**: Swift Package Manager
-- **Status**: ✨ Enhanced with user-friendly setup wizard and installation
-- **Last Modified**: 3 Jun 2025 at 10:11 AM
+- **Status**: Directory naming issue - has trailing space
+- **Last Modified**: 5 Jun 2025 at 9:37 AM
 
 ### member-berries-apple-mcp
 - **Location**: `/Users/rogers/GitHub/member-berries-apple-mcp`
 - **Tech Stack**: Swift
-- **Status**: Published
-- **Last Modified**: 4 Jun 2025 at 8:34 PM
+- **Status**: Active - Calendar fix committed
+- **Last Modified**: 5 Jun 2025 at 9:03 PM
 
 
 ## Common Patterns & Solutions
