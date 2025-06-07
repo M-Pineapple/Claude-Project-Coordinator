@@ -113,7 +113,10 @@ struct SecurityValidator {
         // Remove null bytes and other control characters (except newlines and tabs)
         sanitized = sanitized.filter { char in
             let scalar = char.unicodeScalars.first!
-            return !scalar.properties.isControl || char == "\n" || char == "\t" || char == "\r"
+            // Check for control characters manually for compatibility
+            let value = scalar.value
+            let isControlChar = (value < 32 && value != 9 && value != 10 && value != 13) || value == 127
+            return !isControlChar
         }
         
         return sanitized.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -225,7 +228,7 @@ enum SecurityError: LocalizedError {
     
     var recoverySuggestion: String? {
         switch self {
-        case .pathNotAllowed(_, let allowedPaths):
+        case .pathNotAllowed(_, _):
             return "Move your project to one of the allowed directories, or update the security configuration to include your preferred directory."
         case .textTooLong(let field, let maxLength):
             return "Please shorten the \(field.lowercased()) to \(maxLength) characters or fewer."
