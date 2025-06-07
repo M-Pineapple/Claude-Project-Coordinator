@@ -1,11 +1,17 @@
-
 # Personal project data - NEVER commit these
 KnowledgeBase/projects/*.json
 KnowledgeBase/projects/*-summary.md
 !KnowledgeBase/projects/.gitkeep
+
+# Auto-generated security configuration
+KnowledgeBase/security-config.json
 
 # User-specific Xcode data
 .swiftpm/xcode/xcuserdata/
 xcuserdata/
 .build/
 .DS_Store
+
+# Development artifacts
+test-phase1.sh
+PHASE1-SUMMARY.md

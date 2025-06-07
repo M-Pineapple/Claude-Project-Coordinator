@@ -9,6 +9,17 @@ An MCP (Model Context Protocol) server for managing and coordinating multiple Xc
 - 📚 **Knowledge Base**: Maintain patterns, templates, and troubleshooting guides
 - 🤖 **Auto-Detection**: Automatically detects SwiftUI, UIKit, SPM, and other technologies
 - 💾 **Persistent Storage**: All data stored locally in structured JSON format
+- 🔐 **Security First**: Comprehensive input validation and path traversal protection
+
+## Security Features (v1.2.0+)
+
+- 🛡️ **Input Validation**: Comprehensive validation of all user inputs
+- 🚫 **Path Traversal Protection**: Blocks malicious paths like `../../../etc/passwd`
+- 📁 **Directory Access Control**: Configurable allowed directories for projects
+- 🚨 **Injection Prevention**: Validates search patterns to prevent command injection
+- ⚖️ **Reasonable Limits**: Input length limits to prevent buffer overflow attacks
+- 📝 **Clear Error Messages**: Helpful guidance when security validation fails
+- ⚙️ **Configurable Security**: Customize security policies via `security-config.json`
 
 ## Installation
 
@@ -20,7 +31,6 @@ An MCP (Model Context Protocol) server for managing and coordinating multiple Xc
 
 1. Clone the repository:
 ```bash
-
 git clone https://github.com/M-Pineapple/Claude-Project-Coordinator.git
 cd Claude-Project-Coordinator
 ```
@@ -79,6 +89,34 @@ You: "Which of my projects use Core Data?"
 Claude: [Shows all projects with Core Data in their tech stack or notes]
 ```
 
+## Security Configuration
+
+The tool automatically creates a `KnowledgeBase/security-config.json` file with sensible defaults:
+
+```json
+{
+  "allowedPaths": [
+    "~/Developer",
+    "~/GitHub", 
+    "~/Documents",
+    "~/Projects",
+    "~/Desktop/Development",
+    "~/Xcode"
+  ],
+  "maxProjectNameLength": 100,
+  "maxDescriptionLength": 2000,
+  "maxNotesLength": 10000,
+  "maxSearchPatternLength": 300,
+  "enableValidation": true
+}
+```
+
+### Customizing Security
+
+- **Add allowed directories**: Edit the `allowedPaths` array to include your project locations
+- **Adjust limits**: Modify maximum lengths as needed for your workflow
+- **Disable validation**: Set `enableValidation` to `false` (not recommended)
+
 ## MCP Tools Available
 
 ### `list_projects`
@@ -87,18 +125,22 @@ Lists all tracked projects with their metadata
 ### `add_project`
 Adds a new project to track
 - Parameters: `name`, `path`, `description` (optional)
+- **Security**: Validates project name, path, and description
 
 ### `get_project_status`
 Gets detailed information about a specific project
 - Parameters: `projectName`
+- **Security**: Validates project name
 
 ### `update_project_status`
 Updates project status and/or notes
 - Parameters: `projectName`, `status` (optional), `notes` (optional)
+- **Security**: Validates all text inputs
 
 ### `search_code_patterns`
 Searches through projects and knowledge base
 - Parameters: `pattern`
+- **Security**: Validates search pattern for injection attempts
 
 ## Project Structure
 
@@ -106,18 +148,21 @@ Searches through projects and knowledge base
 Claude-Project-Coordinator/
 ├── Sources/
 │   └── ProjectCoordinator/
-│       ├── main.swift           # Entry point
-│       ├── MCPServer.swift      # MCP protocol implementation
-│       └── ProjectManager.swift # Project management logic
+│       ├── main.swift              # Entry point
+│       ├── MCPServer.swift         # MCP protocol implementation
+│       ├── ProjectManager.swift    # Project management logic
+│       └── SecurityValidator.swift # Input validation and security
 ├── KnowledgeBase/
-│   ├── projects/               # Project data storage
-│   ├── patterns/               # Code patterns
-│   ├── templates/              # Project templates
-│   └── tools/                  # Development tools/guides
+│   ├── projects/                  # Project data storage
+│   ├── patterns/                  # Code patterns
+│   ├── templates/                 # Project templates
+│   ├── tools/                     # Development tools/guides
+│   └── security-config.json       # Security configuration
 ├── scripts/
-│   └── build.sh               # Build script
-├── Package.swift              # Swift package manifest
-└── README.md                  # This file
+│   └── build.sh                   # Build script
+├── Package.swift                  # Swift package manifest
+├── CHANGELOG.md                   # Version history
+└── README.md                      # This file
 ```
 
 ## Knowledge Base
@@ -134,9 +179,22 @@ You can add your own content by creating markdown files in the appropriate direc
 
 The Project Coordinator:
 1. Communicates with Claude Desktop using the MCP protocol over stdio
-2. Stores project data as JSON files in `KnowledgeBase/projects/`
-3. Automatically detects technologies by scanning project directories
-4. Maintains an index for quick searching and retrieval
+2. Validates all inputs through the comprehensive security system
+3. Stores project data as JSON files in `KnowledgeBase/projects/`
+4. Automatically detects technologies by scanning project directories
+5. Maintains an index for quick searching and retrieval
+
+## Security Considerations
+
+**For Individual Developers:**
+- Default security settings are designed for personal development workflows
+- Protects against common attack vectors while maintaining usability
+- All validation can be customized or disabled if needed
+
+**For Organizations:**
+- This tool provides a solid foundation for enterprise deployment
+- Additional security measures may be needed for production environments
+- Consider implementing additional authentication and audit logging for shared use
 
 ## Contributing
 
@@ -153,10 +211,15 @@ Contributions are welcome! Please feel free to:
 - Uses JSON-RPC for MCP communication
 - Async/await for modern Swift concurrency
 - Actor-based architecture for thread safety
+- Comprehensive input validation and security hardening
 
 ## License
 
 MIT License - feel free to use this in your own projects!
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for detailed version history and security improvements.
 
 ## Acknowledgments
 
@@ -164,5 +227,4 @@ Built as part of exploring the Model Context Protocol (MCP) ecosystem for enhanc
 
 ---
 
-Made with ❤️ from 🍍 Pineapple 
-
+Made with ❤️ from 🍍 Pineapple
