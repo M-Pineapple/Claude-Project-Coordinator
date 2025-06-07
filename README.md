@@ -192,7 +192,7 @@ The Project Coordinator:
 - All validation can be customized or disabled if needed
 
 **For Organizations:**
-- This tool provides a solid foundation for enterprise deployment
+- Organizations should evaluate their own security requirements
 - Additional security measures may be needed for production environments
 - Consider implementing additional authentication and audit logging for shared use
 
