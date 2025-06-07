@@ -310,26 +310,26 @@ class MCPServer {
             guard let projectName = arguments["projectName"] as? String else {
                 throw CoordinatorError.invalidArguments
             }
-            return try await projectManager.getProjectStatus(projectName: projectName)
+            return try await projectManager.getProjectStatusSecure(projectName: projectName)
         case "search_code_patterns":
             guard let pattern = arguments["pattern"] as? String else {
                 throw CoordinatorError.invalidArguments
             }
-            return try await projectManager.searchCodePatterns(pattern: pattern)
+            return try await projectManager.searchCodePatternsSecure(pattern: pattern)
         case "add_project":
             guard let projectName = arguments["name"] as? String,
                   let path = arguments["path"] as? String else {
                 throw CoordinatorError.invalidArguments
             }
             let description = arguments["description"] as? String
-            return try await projectManager.addProject(name: projectName, path: path, description: description)
+            return try await projectManager.addProjectSecure(name: projectName, path: path, description: description)
         case "update_project_status":
             guard let projectName = arguments["projectName"] as? String else {
                 throw CoordinatorError.invalidArguments
             }
             let status = arguments["status"] as? String
             let notes = arguments["notes"] as? String
-            return try await projectManager.updateProjectStatus(projectName: projectName, status: status, notes: notes)
+            return try await projectManager.updateProjectStatusSecure(projectName: projectName, status: status, notes: notes)
         default:
             throw CoordinatorError.unknownTool
         }

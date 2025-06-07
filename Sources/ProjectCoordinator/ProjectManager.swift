@@ -19,12 +19,17 @@ actor ProjectManager {
     private var projects: [String: Project] = [:]
     private let knowledgeBasePath: String
     private let fileManager = FileManager.default
+    private var securityConfig: SecurityConfig
     
     init() {
         // Get the executable's directory and construct KnowledgeBase path relative to it
         let executablePath = Bundle.main.executablePath ?? ""
         let executableDir = URL(fileURLWithPath: executablePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().path
         self.knowledgeBasePath = "\(executableDir)/KnowledgeBase"
+        
+        // Load security configuration
+        let configPath = "\(executableDir)/KnowledgeBase/security-config.json"
+        self.securityConfig = SecurityConfig.load(from: configPath)
     }
     
     func initialize() async {
@@ -496,5 +501,77 @@ actor ProjectManager {
         formatter.dateStyle = .medium
         formatter.timeStyle = .short
         return formatter.string(from: date)
+    }
+    
+    // MARK: - Secure Methods (Phase 1 Security Implementation)
+    
+    /// Securely add a project with input validation
+    func addProjectSecure(name: String, path: String, description: String?) async throws -> String {
+        // Input validation if security is enabled
+        if securityConfig.enableValidation {
+            let validatedName = try SecurityValidator.validateProjectName(name)
+            let validatedPath = try SecurityValidator.validateProjectPath(path)
+            let validatedDescription = try description.map { 
+                try SecurityValidator.validateText($0, maxLength: securityConfig.maxDescriptionLength, fieldName: "description")
+            }
+            
+            // Verify the path actually exists and is accessible
+            try SecurityValidator.verifyPathExists(validatedPath)
+            
+            // Call original method with validated inputs
+            return try await addProject(name: validatedName, path: validatedPath, description: validatedDescription)
+        } else {
+            // Fallback to original method if validation is disabled
+            return try await addProject(name: name, path: path, description: description)
+        }
+    }
+    
+    /// Securely update project status with input validation
+    func updateProjectStatusSecure(projectName: String, status: String?, notes: String?) async throws -> String {
+        if securityConfig.enableValidation {
+            let validatedName = try SecurityValidator.validateProjectName(projectName)
+            let validatedStatus = try status.map {
+                try SecurityValidator.validateText($0, maxLength: 500, fieldName: "status")
+            }
+            let validatedNotes = try notes.map {
+                try SecurityValidator.validateText($0, maxLength: securityConfig.maxNotesLength, fieldName: "notes")
+            }
+            
+            return try await updateProjectStatus(projectName: validatedName, status: validatedStatus, notes: validatedNotes)
+        } else {
+            return try await updateProjectStatus(projectName: projectName, status: status, notes: notes)
+        }
+    }
+    
+    /// Securely search code patterns with input validation
+    func searchCodePatternsSecure(pattern: String) async throws -> String {
+        if securityConfig.enableValidation {
+            let validatedPattern = try SecurityValidator.validateSearchPattern(pattern)
+            return try await searchCodePatterns(pattern: validatedPattern)
+        } else {
+            return try await searchCodePatterns(pattern: pattern)
+        }
+    }
+    
+    /// Securely get project status with input validation
+    func getProjectStatusSecure(projectName: String) async throws -> String {
+        if securityConfig.enableValidation {
+            let validatedName = try SecurityValidator.validateProjectName(projectName)
+            return try await getProjectStatus(projectName: validatedName)
+        } else {
+            return try await getProjectStatus(projectName: projectName)
+        }
+    }
+    
+    /// Get current security configuration (for debugging/monitoring)
+    func getSecurityConfig() -> SecurityConfig {
+        return securityConfig
+    }
+    
+    /// Update security configuration
+    func updateSecurityConfig(_ newConfig: SecurityConfig) throws {
+        self.securityConfig = newConfig
+        let configPath = "\(knowledgeBasePath)/security-config.json"
+        try newConfig.save(to: configPath)
     }
 }
