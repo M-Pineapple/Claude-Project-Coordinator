@@ -62,7 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Build script now provides correct MCP configuration without port arguments
 
 ### Technical Details
-- `ProjectManager.swift`: Changed from hardcoded `/Users/rogers/GitHub/Claude-Project-Coordinator/KnowledgeBase` to dynamic path construction using `Bundle.main.executablePath`
+- `ProjectManager.swift`: Changed from hardcoded `/Users/user/GitHub/Claude-Project-Coordinator/KnowledgeBase` to dynamic path construction using `Bundle.main.executablePath`
 - `ProjectManager.swift`: Added `decoder.dateDecodingStrategy = .iso8601` in `loadProjects()` method
 - `ProjectManager.swift`: Added `&& !file.contains("EXAMPLE")` filter to skip example files
 - `scripts/build.sh`: Updated configuration example to use `"args": []` instead of `["--port", "3000"]`
