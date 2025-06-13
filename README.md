@@ -231,6 +231,20 @@ The analytics system runs automatically in the background, tracking:
 
 **Note**: Analytics are presented as formatted text in Claude chat, optimized for readability and quick insights. See [ANALYTICS-EXAMPLES.md](ANALYTICS-EXAMPLES.md) for real output examples.
 
+## 💖 Support This Project
+
+If CPC has helped streamline your development workflow or saved you time managing projects, consider supporting its development:
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/M-Pineapple)
+
+Your support helps me:
+- Maintain and improve CPC with new features
+- Keep the project open-source and free for everyone
+- Dedicate more time to addressing user requests and bug fixes
+- Explore new tools that enhance developer productivity
+
+Thank you for considering supporting my work! 🙏
+
 ## How It Works
 
 The Project Coordinator:
