@@ -101,14 +101,26 @@ class MCPServer {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     private let projectManager = ProjectManager()
+    private let analytics: ProjectAnalytics
     
     init() {
         encoder.outputFormatting = .sortedKeys  // Remove prettyPrinted
+        
+        // Initialize analytics with same knowledge base path
+        let executablePath = Bundle.main.executablePath ?? ""
+        let executableDir = URL(fileURLWithPath: executablePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().path
+        self.analytics = ProjectAnalytics(knowledgeBasePath: "\(executableDir)/KnowledgeBase")
     }
     
     func start() async throws {
         // Initialize project manager
         await projectManager.initialize()
+        
+        // Initialize analytics
+        try await analytics.loadAnalytics()
+        
+        // Migrate existing projects to analytics
+        await projectManager.migrateToAnalytics(analytics: analytics)
         
         // Use stdin/stdout for MCP communication
         await handleStdioConnection()
@@ -265,6 +277,52 @@ class MCPServer {
                     ],
                     "required": ["projectName"]
                 ]
+            ],
+            [
+                "name": "get_project_timeline",
+                "description": "Get status timeline and duration for a project",
+                "inputSchema": [
+                    "type": "object",
+                    "properties": [
+                        "projectName": [
+                            "type": "string",
+                            "description": "Name of the project"
+                        ]
+                    ],
+                    "required": ["projectName"]
+                ]
+            ],
+            [
+                "name": "get_activity_heatmap",
+                "description": "Show project activity heat map for recent days",
+                "inputSchema": [
+                    "type": "object",
+                    "properties": [
+                        "days": [
+                            "type": "integer",
+                            "description": "Number of days to analyze (default: 7)"
+                        ]
+                    ],
+                    "required": []
+                ]
+            ],
+            [
+                "name": "get_technology_trends",
+                "description": "Analyze technology usage across all projects",
+                "inputSchema": [
+                    "type": "object",
+                    "properties": [:],
+                    "required": []
+                ]
+            ],
+            [
+                "name": "get_project_health",
+                "description": "Get health scores and recommendations for all projects",
+                "inputSchema": [
+                    "type": "object",
+                    "properties": [:],
+                    "required": []
+                ]
             ]
         ]
         
@@ -322,14 +380,38 @@ class MCPServer {
                 throw CoordinatorError.invalidArguments
             }
             let description = arguments["description"] as? String
-            return try await projectManager.addProjectSecure(name: projectName, path: path, description: description)
+            let result = try await projectManager.addProjectSecure(name: projectName, path: path, description: description)
+            // Record in analytics
+            await analytics.recordActivity(for: projectName, type: .accessed)
+            return result
         case "update_project_status":
             guard let projectName = arguments["projectName"] as? String else {
                 throw CoordinatorError.invalidArguments
             }
             let status = arguments["status"] as? String
             let notes = arguments["notes"] as? String
+            
+            // Update in analytics if status changed
+            if let newStatus = status {
+                await analytics.updateStatus(for: projectName, newStatus: newStatus)
+            }
+            if notes != nil {
+                await analytics.recordActivity(for: projectName, type: .noteAdded)
+            }
+            
             return try await projectManager.updateProjectStatusSecure(projectName: projectName, status: status, notes: notes)
+        case "get_project_timeline":
+            guard let projectName = arguments["projectName"] as? String else {
+                throw CoordinatorError.invalidArguments
+            }
+            return await analytics.getStatusDuration(for: projectName) ?? "No timeline data available for \(projectName)"
+        case "get_activity_heatmap":
+            let days = arguments["days"] as? Int ?? 7
+            return await analytics.getActivityHeatMap(days: days)
+        case "get_technology_trends":
+            return await analytics.getTechnologyTrends()
+        case "get_project_health":
+            return await analytics.getProjectHealthReport()
         default:
             throw CoordinatorError.unknownTool
         }

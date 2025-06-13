@@ -5,6 +5,56 @@ All notable changes to Claude Project Coordinator will be documented in this fil
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2025-06-13
+
+### Added 📊
+- **Project Analytics Engine** - Comprehensive analytics system for tracking project metrics
+- **Time Tracking** - Automatic tracking of time spent in each project status
+- **Activity Heat Map** - Visual representation of project activity levels
+- **Technology Trends** - Analysis of framework and technology usage across projects
+- **Project Health Scoring** - Intelligent health metrics with recommendations
+- **Status Timeline** - Track complete history of status changes with durations
+- **Activity Logging** - Record all project interactions (status changes, notes, searches)
+
+### New MCP Tools 🛠️
+- `get_project_timeline` - View status history and time spent in each phase
+- `get_activity_heatmap` - See which projects are most active (customizable time range)
+- `get_technology_trends` - Analyze technology adoption and usage patterns
+- `get_project_health` - Get health scores and actionable recommendations
+
+### Technical Implementation
+- New `ProjectAnalytics.swift` with comprehensive analytics models
+- `ProjectWithAnalytics` struct extends original Project model
+- Automatic migration of existing projects to analytics system
+- Analytics data persisted in `KnowledgeBase/analytics/` directory
+- Zero manual effort - all tracking happens automatically
+
+### Analytics Features Detail
+
+#### Time Tracking
+- Tracks duration in each status (Planning, Development, Testing, etc.)
+- Human-readable durations ("3 days, 14 hours")
+- Complete status history with timestamps
+- Total project age calculation
+
+#### Activity Heat Map
+- Visual activity indicators (💤 🔥 🔥🔥 🔥🔥🔥)
+- Configurable time periods (default: 7 days)
+- Daily activity breakdown
+- Event type tracking (status changes, notes, tasks)
+
+#### Technology Trends
+- Framework usage percentages across projects
+- Emerging technology identification
+- Technology adoption timeline
+- Project-to-technology mapping
+
+#### Project Health Scoring
+- Multi-factor health assessment (0-100 score)
+- Factors: Activity, Staleness, Documentation, Task Completion
+- Automatic categorization (Critical, Needs Attention, Healthy)
+- Actionable recommendations for improvement
+
 ## [1.2.0] - 2025-06-07
 
 ### Added 🔐

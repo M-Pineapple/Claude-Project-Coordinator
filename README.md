@@ -10,6 +10,8 @@ An MCP (Model Context Protocol) server for managing and coordinating multiple Xc
 - 🤖 **Auto-Detection**: Automatically detects SwiftUI, UIKit, SPM, and other technologies
 - 💾 **Persistent Storage**: All data stored locally in structured JSON format
 - 🔐 **Security First**: Comprehensive input validation and path traversal protection
+- 📊 **Project Analytics**: Time tracking, activity heat maps, and health scoring (v1.3.0+)
+- 📈 **Technology Trends**: Analyze framework usage and adoption patterns (v1.3.0+)
 
 ## Security Features (v1.2.0+)
 
@@ -75,6 +77,13 @@ Once configured, you can interact with the Project Coordinator through Claude:
 - **Update status**: "Update WeatherApp status to 'Implementing API integration'"
 - **Search patterns**: "Find all SwiftUI patterns"
 - **Get project details**: "What's the status of my TodoApp?"
+
+### Analytics Commands (v1.3.0+)
+
+- **Time tracking**: "How long has CryptoExitStrategy been in development?"
+- **Activity heat map**: "Show me my project activity this week"
+- **Technology trends**: "What technologies am I using most?"
+- **Health check**: "Which projects need my attention?"
 
 ### Example Workflow
 
@@ -175,14 +184,40 @@ The Knowledge Base comes pre-populated with:
 
 You can add your own content by creating markdown files in the appropriate directories.
 
+## Project Analytics (v1.3.0+)
+
+The analytics system runs automatically in the background, tracking:
+
+### Time Tracking
+- Automatically tracks time spent in each project status
+- No manual timers needed - just update status normally
+- View complete timeline with: `get_project_timeline`
+
+### Activity Monitoring
+- Records all interactions: status changes, notes, searches
+- Generates heat maps showing project activity levels
+- Identify your most and least active projects
+
+### Technology Analysis
+- Tracks framework and tool usage across all projects
+- Identifies emerging technologies you're experimenting with
+- Shows adoption trends over time
+
+### Health Scoring
+- Multi-factor analysis of project health (0-100 score)
+- Factors: activity level, staleness, documentation, task completion
+- Provides actionable recommendations for improvement
+
 ## How It Works
 
 The Project Coordinator:
 1. Communicates with Claude Desktop using the MCP protocol over stdio
 2. Validates all inputs through the comprehensive security system
 3. Stores project data as JSON files in `KnowledgeBase/projects/`
-4. Automatically detects technologies by scanning project directories
-5. Maintains an index for quick searching and retrieval
+4. Stores analytics data in `KnowledgeBase/analytics/`
+5. Automatically detects technologies by scanning project directories
+6. Maintains an index for quick searching and retrieval
+7. Tracks all project interactions for analytics
 
 ## Security Considerations
 

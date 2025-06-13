@@ -20,6 +20,7 @@ actor ProjectManager {
     private let knowledgeBasePath: String
     private let fileManager = FileManager.default
     private var securityConfig: SecurityConfig
+    private var analytics: ProjectAnalytics?
     
     init() {
         // Get the executable's directory and construct KnowledgeBase path relative to it
@@ -573,5 +574,52 @@ actor ProjectManager {
         self.securityConfig = newConfig
         let configPath = "\(knowledgeBasePath)/security-config.json"
         try newConfig.save(to: configPath)
+    }
+    
+    // MARK: - Analytics Integration
+    
+    func migrateToAnalytics(analytics: ProjectAnalytics) async {
+        self.analytics = analytics
+        
+        // Migrate all existing projects to analytics
+        for (_, project) in projects {
+            let analyticsProject = await analytics.migrateProject(project)
+            // Record initial activity
+            await analytics.recordActivity(for: project.name, type: .accessed, description: "Project migrated to analytics")
+        }
+        
+        // Save analytics data
+        try? await analytics.saveAnalytics()
+    }
+    
+    func updateProjectWithAnalytics(projectName: String, status: String?, notes: String?) async throws {
+        guard var project = projects[projectName] else {
+            throw CoordinatorError.projectNotFound
+        }
+        
+        // Update analytics if available
+        if let analytics = analytics {
+            if let newStatus = status, newStatus != project.status {
+                await analytics.updateStatus(for: projectName, newStatus: newStatus)
+            }
+            if notes != nil {
+                await analytics.recordActivity(for: projectName, type: .noteAdded)
+            }
+        }
+        
+        // Continue with normal update
+        if let status = status {
+            project.status = status
+        }
+        
+        if let notes = notes {
+            project.notes = notes
+        }
+        
+        project.lastModified = Date()
+        projects[projectName] = project
+        
+        try await saveProject(project)
+        await updateProjectIndex()
     }
 }
