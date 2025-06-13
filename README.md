@@ -85,6 +85,8 @@ Once configured, you can interact with the Project Coordinator through Claude:
 - **Technology trends**: "What technologies am I using most?"
 - **Health check**: "Which projects need my attention?"
 
+📊 **See [ANALYTICS-EXAMPLES.md](ANALYTICS-EXAMPLES.md) for detailed output examples and productive prompts!**
+
 ### Example Workflow
 
 ```
@@ -96,6 +98,25 @@ Claude: "Successfully updated FinanceTracker"
 
 You: "Which of my projects use Core Data?"
 Claude: [Shows all projects with Core Data in their tech stack or notes]
+```
+
+### Analytics Output Example
+
+```
+You: "Show my project activity this week"
+
+Claude:
+## Project Activity Heat Map (Past 7 Days)
+
+🔥🔥🔥 **TodoApp** (15 activity points - 6 events)
+🔥🔥 **WeatherStation** (8 activity points - 3 events)
+🔥 **PortfolioSite** (3 activity points - 2 events)
+💤 **OldBlogEngine** (0 activity points)
+
+### Daily Activity Breakdown:
+- Monday: 4 events
+- Tuesday: 8 events
+- Wednesday: 3 events
 ```
 
 ## Security Configuration
@@ -208,6 +229,8 @@ The analytics system runs automatically in the background, tracking:
 - Factors: activity level, staleness, documentation, task completion
 - Provides actionable recommendations for improvement
 
+**Note**: Analytics are presented as formatted text in Claude chat, optimized for readability and quick insights. See [ANALYTICS-EXAMPLES.md](ANALYTICS-EXAMPLES.md) for real output examples.
+
 ## How It Works
 
 The Project Coordinator:
@@ -230,6 +253,12 @@ The Project Coordinator:
 - Organizations should evaluate their own security requirements
 - Additional security measures may be needed for production environments
 - Consider implementing additional authentication and audit logging for shared use
+
+## Example Files & Documentation
+
+- **[ANALYTICS-EXAMPLES.md](ANALYTICS-EXAMPLES.md)** - Real output examples and productive prompts
+- **[CHANGELOG.md](CHANGELOG.md)** - Detailed version history
+- **Security Features** - See the Security Configuration section above
 
 ## Contributing
 

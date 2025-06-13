@@ -15,19 +15,10 @@ if [ -f ".build/release/project-coordinator" ]; then
     echo "✅ Build successful!"
     echo ""
     echo "📝 Next steps:"
-    echo "1. Add this to your Claude Desktop MCP settings:"
-    echo ""
-    echo '{
-  "project-coordinator": {
-    "command": "<path-to-repo>/.build/release/project-coordinator",
-    "args": []
-  }
-}'
-    echo ""
-    echo "Replace <path-to-repo> with your actual repository path"
-    echo ""
-    echo "2. Restart Claude Desktop"
-    echo "3. Start using commands like 'list my projects' or 'add a new project'"
+    echo "1. Add the executable path to your Claude Desktop MCP settings"
+    echo "2. The executable is located at: .build/release/project-coordinator"
+    echo "3. Restart Claude Desktop"
+    echo "4. Start using commands like 'list my projects' or 'add a new project'"
 else
     echo "❌ Build failed. Please check for errors above."
     exit 1
