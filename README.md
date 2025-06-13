@@ -80,7 +80,7 @@ Once configured, you can interact with the Project Coordinator through Claude:
 
 ### Analytics Commands (v1.3.0+)
 
-- **Time tracking**: "How long has CryptoExitStrategy been in development?"
+- **Time tracking**: "How long has Ubermania been in development?"
 - **Activity heat map**: "Show me my project activity this week"
 - **Technology trends**: "What technologies am I using most?"
 - **Health check**: "Which projects need my attention?"
