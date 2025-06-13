@@ -1,0 +1,60 @@
+{
+  "projectsUsing" : {
+    "Xcode Project" : [
+      "CryptoExitStrategyMAC",
+      "Chronos",
+      "Local GPT",
+      "Memory Defragmenter",
+      "CryptoExitStrategyDashboard",
+      "ClaudeXcode",
+      "Pine Calculator"
+    ],
+    "Xcode Workspace" : [
+      "Crypto Exit Strategy",
+      "WebHood"
+    ],
+    "SwiftUI" : [
+      "Claude-Project-Coordinator-GitHub",
+      "Excel MCP Server Installation",
+      "Claude-Project-Coordinator",
+      "CryptoExitStrategyMAC-Temp",
+      "CryptoExitStrategyMAC",
+      "Chronos",
+      "Memory Defragmenter",
+      "CryptoExitStrategyDashboard",
+      "ClaudeXcode",
+      "Pine Calculator",
+      "CPC-Backup-20250603"
+    ],
+    "Swift" : [
+      "iWork MCP",
+      "CoinPaprika MCP",
+      "member-berries-apple-mcp",
+      "CryptoAnalysisMCP",
+      "Member Berries Apple MCP",
+      "CryptoExitStrategyMAC-Final-Build"
+    ],
+    "Swift Package Manager" : [
+      "Claude-Project-Coordinator-GitHub",
+      "macp-guard",
+      "Claude-Project-Coordinator",
+      "Memory Defragmenter",
+      "MaCP Guard",
+      "CPC-Backup-20250603"
+    ]
+  },
+  "lastUsed" : {
+    "Swift Package Manager" : "2025-06-13T06:39:56Z",
+    "Swift" : "2025-06-13T06:39:56Z",
+    "SwiftUI" : "2025-06-13T06:39:56Z",
+    "Xcode Workspace" : "2025-06-13T06:39:56Z",
+    "Xcode Project" : "2025-06-13T06:39:56Z"
+  },
+  "frameworkCounts" : {
+    "SwiftUI" : 22,
+    "Xcode Project" : 14,
+    "Swift" : 12,
+    "Xcode Workspace" : 4,
+    "Swift Package Manager" : 12
+  }
+}
