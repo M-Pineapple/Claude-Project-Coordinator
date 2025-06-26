@@ -234,6 +234,7 @@ The analytics system runs automatically in the background, tracking:
 ## 💖 Support This Project
 
 If CPC has helped streamline your development workflow or saved you time managing projects, consider supporting its development:
+
 <a href="https://www.buymeacoffee.com/mpineapple" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 Your support helps me:
