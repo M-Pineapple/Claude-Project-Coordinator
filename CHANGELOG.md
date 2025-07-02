@@ -5,6 +5,23 @@ All notable changes to Claude Project Coordinator will be documented in this fil
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.2] - 2025-07-02
+
+### Fixed 🐛
+- **Analytics Data Loading Issue** - Fixed critical bug where analytics data was not loading from disk
+  - Analytics were being initialized but not loading existing data
+  - Health scores, activity heatmaps, and tech trends showed empty results
+  - Fix: Added `loadAnalytics()` call after initializing analytics in `ProjectManager.initialize()`
+  - This ensures all persisted analytics data is properly loaded on startup
+  - Affected all analytics features introduced in v1.3.0
+
+### Technical Details
+- Added analytics initialization sequence in `ProjectManager.initialize()`:
+  1. Initialize analytics with base path
+  2. Ensure all projects exist in analytics (migrate if needed)
+  3. Load analytics data from disk using `loadAnalytics()`
+- Without this fix, analytics data was written to disk but never read back on restart
+
 ## [1.3.1] - 2025-07-02
 
 ### Fixed 🐛
