@@ -39,6 +39,24 @@ actor ProjectManager {
         
         // Load existing projects
         await loadProjects()
+        
+        // Initialize analytics with loaded projects
+        let analyticsPath = "\(knowledgeBasePath)/analytics"
+        analytics = ProjectAnalytics(basePath: analyticsPath)
+        await analytics?.initialize()
+        
+        // Load analytics data for existing projects
+        if let analytics = analytics {
+            for (_, project) in projects {
+                // Ensure project exists in analytics
+                if await analytics.getProject(project.name) == nil {
+                    _ = await analytics.migrateProject(project)
+                }
+            }
+            
+            // Load the analytics data from disk
+            try? await analytics.loadAnalytics()
+        }
     }
     
     private func createKnowledgeBaseStructure() {
