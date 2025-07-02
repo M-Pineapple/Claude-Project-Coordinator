@@ -5,6 +5,23 @@ All notable changes to Claude Project Coordinator will be documented in this fil
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.1] - 2025-07-02
+
+### Fixed 🐛
+- **Analytics Migration Date Bug** - Fixed issue where existing projects showed incorrect creation dates after migration
+  - Projects were showing migration timestamp instead of original creation date
+  - All migrated projects appeared to be created "30-40 minutes ago"
+  - Fix: Changed `init(from project: Project)` to use `project.lastModified` as `createdDate`
+  - Added `scripts/fix-analytics-dates.swift` for users who already migrated
+  - This bug affected all users upgrading from pre-v1.3.0 with existing projects
+
+### Added
+- **Fix Script** - `scripts/fix-analytics-dates.swift` to correct already-migrated analytics files
+  - Automatically detects and fixes incorrect creation dates
+  - Shows before/after dates for transparency
+  - Skips already-correct projects
+  - Run with: `swift scripts/fix-analytics-dates.swift` from CPC directory
+
 ## [1.3.0] - 2025-06-13
 
 ### Added 📊

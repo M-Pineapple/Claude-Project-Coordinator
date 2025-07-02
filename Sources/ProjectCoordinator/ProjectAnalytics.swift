@@ -116,6 +116,10 @@ struct ProjectWithAnalytics: Codable {
         self.lastModified = project.lastModified
         self.currentTasks = project.currentTasks
         
+        // FIX: Use project's lastModified as createdDate for migration
+        // This preserves the original project date instead of using current time
+        self.createdDate = project.lastModified
+        
         // Initialize status history with current status
         if let currentStatus = project.status {
             self.statusHistory = [StatusHistory(status: currentStatus, startDate: project.lastModified)]
