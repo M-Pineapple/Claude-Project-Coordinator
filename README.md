@@ -21,7 +21,7 @@ An MCP (Model Context Protocol) server for managing and coordinating multiple Xc
 - 🚨 **Injection Prevention**: Validates search patterns to prevent command injection
 - ⚖️ **Reasonable Limits**: Input length limits to prevent buffer overflow attacks
 - 📝 **Clear Error Messages**: Helpful guidance when security validation fails
-- ⚙️ **Configurable Security**: Customize security policies via `security-config.json`
+- ⚙️ **Hardcoded Security**: Security policies are compiled into the binary for reliability
 
 ## Installation
 
@@ -121,31 +121,64 @@ Claude:
 
 ## Security Configuration
 
-The tool automatically creates a `KnowledgeBase/security-config.json` file with sensible defaults:
+Security settings are **hardcoded in the Swift source code** for reliability and security. The default configuration includes:
 
-```json
-{
-  "allowedPaths": [
-    "~/Developer",
-    "~/GitHub", 
-    "~/Documents",
-    "~/Projects",
-    "~/Desktop/Development",
-    "~/Xcode"
-  ],
-  "maxProjectNameLength": 100,
-  "maxDescriptionLength": 2000,
-  "maxNotesLength": 10000,
-  "maxSearchPatternLength": 300,
-  "enableValidation": true
-}
-```
+### Default Security Settings
 
-### Customizing Security
+**Allowed Project Directories:**
+- `~/Developer`
+- `~/Documents`
+- `~/GitHub` 
+- `~/Projects`
+- `~/Desktop/Development`
+- `~/Xcode`
 
-- **Add allowed directories**: Edit the `allowedPaths` array to include your project locations
-- **Adjust limits**: Modify maximum lengths as needed for your workflow
-- **Disable validation**: Set `enableValidation` to `false` (not recommended)
+**Input Limits:**
+- **Project names**: 100 characters maximum
+- **Project paths**: 500 characters maximum
+- **Descriptions**: 2,000 characters maximum
+- **Notes**: 10,000 characters maximum
+- **Search patterns**: 300 characters maximum
+
+### Customizing Security Settings
+
+To modify security settings:
+
+1. **Edit the source code**: Open `Sources/ProjectCoordinator/SecurityValidator.swift`
+
+2. **Modify the configuration values**:
+   ```swift
+   // Add/remove allowed base paths
+   static let allowedBasePaths = [
+       NSHomeDirectory() + "/Developer",
+       NSHomeDirectory() + "/Documents", 
+       NSHomeDirectory() + "/GitHub",
+       NSHomeDirectory() + "/Projects",
+       NSHomeDirectory() + "/Desktop/Development",
+       NSHomeDirectory() + "/Xcode"
+       // Add your custom paths here
+   ]
+   
+   // Adjust length limits
+   static let maxProjectNameLength = 100
+   static let maxDescriptionLength = 2000
+   static let maxNotesLength = 10000
+   static let maxSearchPatternLength = 300
+   ```
+
+3. **Rebuild the project**:
+   ```bash
+   swift build -c release
+   ```
+
+4. **Restart Claude Desktop** to use the updated binary
+
+### Why Hardcoded Configuration?
+
+- **Security**: Configuration cannot be tampered with at runtime
+- **Reliability**: No risk of configuration file corruption or manipulation
+- **Simplicity**: No additional file management or parsing complexity
+- **Performance**: Settings are compiled in, no runtime parsing overhead
 
 ## MCP Tools Available
 
@@ -181,13 +214,12 @@ Claude-Project-Coordinator/
 │       ├── main.swift              # Entry point
 │       ├── MCPServer.swift         # MCP protocol implementation
 │       ├── ProjectManager.swift    # Project management logic
-│       └── SecurityValidator.swift # Input validation and security
+│       └── SecurityValidator.swift # Input validation and security configuration
 ├── KnowledgeBase/
 │   ├── projects/                  # Project data storage
 │   ├── patterns/                  # Code patterns
 │   ├── templates/                 # Project templates
-│   ├── tools/                     # Development tools/guides
-│   └── security-config.json       # Security configuration
+│   └── tools/                     # Development tools/guides
 ├── scripts/
 │   └── build.sh                   # Build script
 ├── Package.swift                  # Swift package manifest
@@ -261,12 +293,13 @@ The Project Coordinator:
 **For Individual Developers:**
 - Default security settings are designed for personal development workflows
 - Protects against common attack vectors while maintaining usability
-- All validation can be customized or disabled if needed
+- Security settings can be customized by modifying source code and rebuilding
 
 **For Organizations:**
 - Organizations should evaluate their own security requirements
 - Additional security measures may be needed for production environments
 - Consider implementing additional authentication and audit logging for shared use
+- Hardcoded configuration prevents runtime tampering
 
 ## Example Files & Documentation
 
