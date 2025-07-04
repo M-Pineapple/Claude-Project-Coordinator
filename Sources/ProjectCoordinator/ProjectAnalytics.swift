@@ -157,6 +157,14 @@ actor ProjectAnalytics {
         self.knowledgeBasePath = knowledgeBasePath
     }
     
+    // Default initializer for compatibility
+    init() {
+        // Get the executable's directory and construct KnowledgeBase path relative to it
+        let executablePath = Bundle.main.executablePath ?? ""
+        let executableDir = URL(fileURLWithPath: executablePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().path
+        self.knowledgeBasePath = "\(executableDir)/KnowledgeBase"
+    }
+    
     // MARK: - Time Tracking
     
     func getStatusDuration(for projectName: String) async -> String? {
@@ -495,13 +503,17 @@ actor ProjectAnalytics {
         try techData.write(to: URL(fileURLWithPath: techPath))
     }
     
-    func loadAnalytics() async throws {
+    func hasAnalytics(for projectName: String) async -> Bool {
+        return projects[projectName] != nil
+    }
+    
+    func loadAnalytics() async {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         
         // Create analytics directory if needed
         let analyticsPath = "\(knowledgeBasePath)/analytics"
-        try FileManager.default.createDirectory(
+        try? FileManager.default.createDirectory(
             atPath: analyticsPath,
             withIntermediateDirectories: true,
             attributes: nil

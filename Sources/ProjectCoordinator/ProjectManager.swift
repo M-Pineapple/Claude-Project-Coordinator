@@ -41,21 +41,38 @@ actor ProjectManager {
         await loadProjects()
         
         // Initialize analytics with loaded projects
-        let analyticsPath = "\(knowledgeBasePath)/analytics"
-        analytics = ProjectAnalytics(basePath: analyticsPath)
-        await analytics?.initialize()
+        analytics = ProjectAnalytics(knowledgeBasePath: knowledgeBasePath)
         
         // Load analytics data for existing projects
         if let analytics = analytics {
+            // Load the analytics data from disk first
+            await analytics.loadAnalytics()
+            
+            var migratedAny = false
+            
+            // Then migrate any projects that don't have analytics yet
             for (_, project) in projects {
-                // Ensure project exists in analytics
-                if await analytics.getProject(project.name) == nil {
+                // Check if analytics FILE exists, not just in memory
+                let analyticsPath = "\(knowledgeBasePath)/projects/\(project.name)-analytics.json"
+                let fileExists = FileManager.default.fileExists(atPath: analyticsPath)
+                
+                if !fileExists {
+                    print("[CPC] Migrating \(project.name) to analytics system")
                     _ = await analytics.migrateProject(project)
+                    migratedAny = true
+                } else {
+                    // File exists, skip migration
+                    print("[CPC] Analytics file already exists for \(project.name), skipping migration")
                 }
             }
             
-            // Load the analytics data from disk
-            try? await analytics.loadAnalytics()
+            // Only save if we actually migrated something
+            if migratedAny {
+                print("[CPC] Saving newly migrated analytics")
+                try? await analytics.saveAnalytics()
+            } else {
+                print("[CPC] No projects needed migration")
+            }
         }
     }
     

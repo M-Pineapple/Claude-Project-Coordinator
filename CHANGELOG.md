@@ -1,3 +1,20 @@
+## [1.3.2] - 2025-07-04
+
+### Fixed
+- **CRITICAL**: Fixed analytics re-migration bug that occurred on every restart
+- Projects no longer lose their creation dates when restarting Claude Desktop
+- Analytics files are now properly checked on disk before migration
+- Added repair script for users affected by date corruption
+
+### Added
+- `scripts/repair-analytics-dates.sh` - Repair tool for fixing corrupted project dates
+- Better logging during migration to track what's happening
+- File existence checks to prevent unnecessary re-migrations
+
+### Changed
+- Migration now only runs for projects without existing analytics files
+- Improved startup performance by avoiding unnecessary saves
+
 # Changelog
 
 All notable changes to Claude Project Coordinator will be documented in this file.
