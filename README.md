@@ -1,3 +1,11 @@
+<div align="center">
+
+<img src="assets/logo.svg" alt="Claude Project Coordinator logo" width="240"/>
+
+# Claude Project Coordinator
+
+</div>
+
 ## 🚨 Critical Update for v1.3.0+ Users
 
 If you're experiencing incorrect project creation dates (all showing today's date), run:
@@ -8,8 +16,6 @@ If you're experiencing incorrect project creation dates (all showing today's dat
 This fixes a bug where analytics were re-migrated on every restart. Fixed in v1.3.2.
 
 ---
-
-# Claude Project Coordinator
 
 An MCP (Model Context Protocol) server for managing and coordinating multiple Xcode/Swift projects. This server provides tools for tracking project status, searching code patterns, and maintaining a knowledge base of development insights.
 
