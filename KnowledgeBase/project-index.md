@@ -7,16 +7,15 @@
 ## Common Patterns & Solutions
 
 ### Swift Patterns
-- Async/Await: See patterns/async-patterns.md
-- Error Handling: See patterns/error-handling.md
-- SwiftUI Best Practices: See patterns/swiftui-practices.md
+- Patterns overview: See patterns/swift-patterns.md
+- SwiftUI practices: See patterns/swiftui-practices.md
 
 ### Xcode Tips
-- Debugging: See tools/debugging-guide.md
-- Performance: See tools/performance-optimization.md
 - Build Issues: See tools/troubleshooting.md
+- Shortcuts: See tools/xcode-shortcuts.md
 
 ## Quick Commands
 - List all projects: `list_projects`
 - Search patterns: `search_code_patterns [pattern]`
 - Update status: `update_project_status [project] [status]`
+- Health report: `get_project_health`

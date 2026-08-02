@@ -2,12 +2,12 @@ import Foundation
 
 // MARK: - Security Validator
 
-struct SecurityValidator {
+public struct SecurityValidator {
     
     // MARK: - Configuration
     
     // Allowed project directory patterns (expandable)
-    static let allowedBasePaths = [
+    public static let allowedBasePaths = [
         NSHomeDirectory() + "/Developer",
         NSHomeDirectory() + "/Documents", 
         NSHomeDirectory() + "/GitHub",
@@ -17,16 +17,16 @@ struct SecurityValidator {
     ]
     
     // Maximum lengths to prevent DoS and maintain reasonable limits
-    static let maxProjectNameLength = 100
-    static let maxPathLength = 500
-    static let maxDescriptionLength = 2000
-    static let maxNotesLength = 10000
-    static let maxSearchPatternLength = 300
+    public static let maxProjectNameLength = 100
+    public static let maxPathLength = 500
+    public static let maxDescriptionLength = 2000
+    public static let maxNotesLength = 10000
+    public static let maxSearchPatternLength = 300
     
     // MARK: - Path Validation
     
     /// Validates and sanitizes a project path
-    static func validateProjectPath(_ path: String) throws -> String {
+    public static func validateProjectPath(_ path: String) throws -> String {
         // Basic length check
         guard !path.isEmpty else {
             throw SecurityError.emptyPath
@@ -50,22 +50,29 @@ struct SecurityValidator {
             }
         }
         
-        // Verify it's within allowed directories
+        // Verify it's within allowed directories (project path must be under a base path).
+        // Exact match of a base path, or prefix of "base/" — never the reverse
+        // (which previously allowed the entire home directory).
         let isAllowed = allowedBasePaths.contains { basePath in
-            normalizedPath.hasPrefix(basePath) || basePath.hasPrefix(normalizedPath)
+            let standardizedBase = URL(fileURLWithPath: basePath).standardized.path
+            if normalizedPath == standardizedBase {
+                return true
+            }
+            let prefix = standardizedBase.hasSuffix("/") ? standardizedBase : standardizedBase + "/"
+            return normalizedPath.hasPrefix(prefix)
         }
-        
+
         guard isAllowed else {
             throw SecurityError.pathNotAllowed(normalizedPath, allowedPaths: allowedBasePaths)
         }
-        
+
         return normalizedPath
     }
     
     // MARK: - Project Name Validation
     
     /// Validates and sanitizes project name
-    static func validateProjectName(_ name: String) throws -> String {
+    public static func validateProjectName(_ name: String) throws -> String {
         // Check for empty name
         guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             throw SecurityError.emptyProjectName
@@ -96,7 +103,7 @@ struct SecurityValidator {
     // MARK: - Text Content Validation
     
     /// Validates and sanitizes text input (descriptions, notes, status)
-    static func validateText(_ text: String, maxLength: Int, fieldName: String) throws -> String {
+    public static func validateText(_ text: String, maxLength: Int, fieldName: String) throws -> String {
         guard text.count <= maxLength else {
             throw SecurityError.textTooLong(fieldName, maxLength)
         }
@@ -125,7 +132,7 @@ struct SecurityValidator {
     // MARK: - Search Pattern Validation
     
     /// Validates search patterns to prevent injection attacks
-    static func validateSearchPattern(_ pattern: String) throws -> String {
+    public static func validateSearchPattern(_ pattern: String) throws -> String {
         guard !pattern.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             throw SecurityError.emptySearchPattern
         }
@@ -152,7 +159,7 @@ struct SecurityValidator {
     // MARK: - File Path Verification
     
     /// Additional verification that a path actually exists and is accessible
-    static func verifyPathExists(_ path: String) throws {
+    public static func verifyPathExists(_ path: String) throws {
         let fileManager = FileManager.default
         var isDirectory: ObjCBool = false
         
@@ -173,7 +180,7 @@ struct SecurityValidator {
 
 // MARK: - Security Errors
 
-enum SecurityError: LocalizedError {
+public enum SecurityError: LocalizedError, Sendable {
     case emptyPath
     case pathTooLong
     case pathTraversalDetected
@@ -188,7 +195,7 @@ enum SecurityError: LocalizedError {
     case emptySearchPattern
     case potentialInjection(String)
     
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .emptyPath:
             return "Project path cannot be empty"
@@ -226,7 +233,7 @@ enum SecurityError: LocalizedError {
         }
     }
     
-    var recoverySuggestion: String? {
+    public var recoverySuggestion: String? {
         switch self {
         case .pathNotAllowed(_, _):
             return "Move your project to one of the allowed directories, or update the security configuration to include your preferred directory."
@@ -244,15 +251,31 @@ enum SecurityError: LocalizedError {
 
 // MARK: - Security Configuration
 
-struct SecurityConfig: Codable {
-    let allowedPaths: [String]
-    let maxProjectNameLength: Int
-    let maxDescriptionLength: Int
-    let maxNotesLength: Int
-    let maxSearchPatternLength: Int
-    let enableValidation: Bool
+public struct SecurityConfig: Codable, Sendable {
+    public let allowedPaths: [String]
+    public let maxProjectNameLength: Int
+    public let maxDescriptionLength: Int
+    public let maxNotesLength: Int
+    public let maxSearchPatternLength: Int
+    public let enableValidation: Bool
     
-    static let `default` = SecurityConfig(
+    public init(
+        allowedPaths: [String],
+        maxProjectNameLength: Int,
+        maxDescriptionLength: Int,
+        maxNotesLength: Int,
+        maxSearchPatternLength: Int,
+        enableValidation: Bool
+    ) {
+        self.allowedPaths = allowedPaths
+        self.maxProjectNameLength = maxProjectNameLength
+        self.maxDescriptionLength = maxDescriptionLength
+        self.maxNotesLength = maxNotesLength
+        self.maxSearchPatternLength = maxSearchPatternLength
+        self.enableValidation = enableValidation
+    }
+    
+    public static let `default` = SecurityConfig(
         allowedPaths: SecurityValidator.allowedBasePaths,
         maxProjectNameLength: SecurityValidator.maxProjectNameLength,
         maxDescriptionLength: SecurityValidator.maxDescriptionLength,
@@ -262,7 +285,7 @@ struct SecurityConfig: Codable {
     )
     
     /// Load configuration from file, creating default if none exists
-    static func load(from path: String) -> SecurityConfig {
+    public static func load(from path: String) -> SecurityConfig {
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
               let config = try? JSONDecoder().decode(SecurityConfig.self, from: data) else {
             // Create default config file
@@ -274,7 +297,7 @@ struct SecurityConfig: Codable {
     }
     
     /// Save configuration to file
-    func save(to path: String) throws {
+    public func save(to path: String) throws {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
         let data = try encoder.encode(self)

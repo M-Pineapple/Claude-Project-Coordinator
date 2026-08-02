@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.0
 import PackageDescription
 
 let package = Package(
@@ -9,14 +9,31 @@ let package = Package(
     products: [
         .executable(
             name: "project-coordinator",
+            targets: ["project-coordinator"]
+        ),
+        .library(
+            name: "ProjectCoordinator",
             targets: ["ProjectCoordinator"]
         ),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(url: "https://github.com/modelcontextprotocol/swift-sdk.git", from: "0.11.0"),
+    ],
     targets: [
-        .executableTarget(
+        .target(
             name: "ProjectCoordinator",
-            dependencies: []
+            dependencies: [
+                .product(name: "MCP", package: "swift-sdk"),
+            ],
+            path: "Sources/ProjectCoordinator"
+        ),
+        .executableTarget(
+            name: "project-coordinator",
+            dependencies: [
+                "ProjectCoordinator",
+                .product(name: "MCP", package: "swift-sdk"),
+            ],
+            path: "Sources/project-coordinator"
         ),
         .testTarget(
             name: "ProjectCoordinatorTests",

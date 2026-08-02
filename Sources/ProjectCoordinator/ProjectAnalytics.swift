@@ -3,7 +3,7 @@ import Foundation
 // MARK: - Analytics Models
 
 /// Tracks status changes over time
-struct StatusHistory: Codable {
+public struct StatusHistory: Codable, Sendable {
     let status: String
     let startDate: Date
     var endDate: Date?
@@ -30,8 +30,8 @@ struct StatusHistory: Codable {
 }
 
 /// Tracks project activity events
-struct ActivityEvent: Codable {
-    enum EventType: String, Codable {
+public struct ActivityEvent: Codable, Sendable {
+    public enum EventType: String, Codable, Sendable {
         case statusChange = "status_change"
         case noteAdded = "note_added"
         case taskAdded = "task_added"
@@ -40,9 +40,9 @@ struct ActivityEvent: Codable {
         case searched = "searched"
     }
     
-    let timestamp: Date
-    let type: EventType
-    let description: String?
+    public let timestamp: Date
+    public let type: EventType
+    public let description: String?
 }
 
 /// Project health scoring
@@ -88,7 +88,7 @@ struct TechnologyStats: Codable {
 }
 
 /// Enhanced project model with analytics
-struct ProjectWithAnalytics: Codable {
+public struct ProjectWithAnalytics: Codable, Sendable {
     // Original project fields
     let name: String
     let path: String
@@ -100,13 +100,13 @@ struct ProjectWithAnalytics: Codable {
     var currentTasks: [String]
     
     // New analytics fields
-    var statusHistory: [StatusHistory] = []
-    var activityLog: [ActivityEvent] = []
-    var createdDate: Date = Date()
-    var completedTasks: [String] = []
+    public var statusHistory: [StatusHistory] = []
+    public var activityLog: [ActivityEvent] = []
+    public var createdDate: Date = Date()
+    public var completedTasks: [String] = []
     
     // Convert from old Project model
-    init(from project: Project) {
+    public init(from project: Project) {
         self.name = project.name
         self.path = project.path
         self.description = project.description
@@ -148,26 +148,22 @@ struct ProjectWithAnalytics: Codable {
 
 // MARK: - Analytics Engine
 
-actor ProjectAnalytics {
+public actor ProjectAnalytics {
     private var projects: [String: ProjectWithAnalytics] = [:]
     private var globalTechStats = TechnologyStats()
     private let knowledgeBasePath: String
     
-    init(knowledgeBasePath: String) {
+    public init(knowledgeBasePath: String) {
         self.knowledgeBasePath = knowledgeBasePath
     }
     
-    // Default initializer for compatibility
-    init() {
-        // Get the executable's directory and construct KnowledgeBase path relative to it
-        let executablePath = Bundle.main.executablePath ?? ""
-        let executableDir = URL(fileURLWithPath: executablePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().path
-        self.knowledgeBasePath = "\(executableDir)/KnowledgeBase"
+    public init() {
+        self.knowledgeBasePath = KnowledgeBasePaths.resolve()
     }
     
     // MARK: - Time Tracking
     
-    func getStatusDuration(for projectName: String) async -> String? {
+    public func getStatusDuration(for projectName: String) async -> String? {
         guard let project = projects[projectName] else { return nil }
         
         var result = "## Status Timeline for \(projectName)\n\n"
@@ -179,13 +175,11 @@ actor ProjectAnalytics {
         
         if project.statusHistory.count > 1 {
             result += "### Previous Statuses:\n"
-            for (index, history) in project.statusHistory.dropLast().enumerated().reversed() {
+            for (_, history) in project.statusHistory.dropLast().enumerated().reversed() {
                 result += "- **\(history.status)**: \(history.formattedDuration)\n"
             }
         }
         
-        // Calculate total project age
-        let projectAge = Date().timeIntervalSince(project.createdDate)
         let ageHistory = StatusHistory(status: "Total", startDate: project.createdDate)
         result += "\n**Total Project Age**: \(ageHistory.formattedDuration)"
         
@@ -194,7 +188,7 @@ actor ProjectAnalytics {
     
     // MARK: - Activity Heat Map
     
-    func getActivityHeatMap(days: Int = 7) async -> String {
+    public func getActivityHeatMap(days: Int = 7) async -> String {
         let calendar = Calendar.current
         let endDate = Date()
         let startDate = calendar.date(byAdding: .day, value: -days, to: endDate)!
@@ -251,7 +245,7 @@ actor ProjectAnalytics {
     
     // MARK: - Technology Trends
     
-    func getTechnologyTrends() async -> String {
+    public func getTechnologyTrends() async -> String {
         var result = "## Technology Analysis\n\n"
         
         // Sort technologies by usage
@@ -296,7 +290,7 @@ actor ProjectAnalytics {
     
     // MARK: - Project Health Scoring
     
-    func getProjectHealthReport() async -> String {
+    public func getProjectHealthReport() async -> String {
         var healthScores: [(name: String, health: ProjectHealth)] = []
         
         for (name, project) in projects {
@@ -349,13 +343,13 @@ actor ProjectAnalytics {
         }
     }
     
-    func migrateProject(_ oldProject: Project) async -> ProjectWithAnalytics {
+    public func migrateProject(_ oldProject: Project) async -> ProjectWithAnalytics {
         let newProject = ProjectWithAnalytics(from: oldProject)
         await updateProject(newProject)
         return newProject
     }
     
-    func recordActivity(for projectName: String, type: ActivityEvent.EventType, description: String? = nil) async {
+    public func recordActivity(for projectName: String, type: ActivityEvent.EventType, description: String? = nil) async {
         guard var project = projects[projectName] else { return }
         
         let event = ActivityEvent(timestamp: Date(), type: type, description: description)
@@ -365,7 +359,7 @@ actor ProjectAnalytics {
         await updateProject(project)
     }
     
-    func updateStatus(for projectName: String, newStatus: String) async {
+    public func updateStatus(for projectName: String, newStatus: String) async {
         guard var project = projects[projectName] else { return }
         
         // Close current status history
@@ -485,7 +479,7 @@ actor ProjectAnalytics {
     
     // MARK: - Persistence
     
-    func saveAnalytics() async throws {
+    public func saveAnalytics() async throws {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
         encoder.dateEncodingStrategy = .iso8601
@@ -507,7 +501,7 @@ actor ProjectAnalytics {
         return projects[projectName] != nil
     }
     
-    func loadAnalytics() async {
+    public func loadAnalytics() async {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         

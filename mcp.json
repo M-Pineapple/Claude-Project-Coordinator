@@ -1,6 +1,6 @@
 {
   "name": "project-coordinator",
-  "version": "1.1.0",
+  "version": "1.4.0",
   "description": "MCP server for managing and coordinating Xcode/Swift projects",
   "author": "Pineapple",
   "license": "MIT",
@@ -8,7 +8,7 @@
     "command": "swift build -c release"
   },
   "install": {
-    "note": "Add the configuration below to your Claude Desktop MCP settings",
+    "note": "Add the configuration below to your Claude Desktop / Cursor / Claude Code MCP settings",
     "config": {
       "command": "/path/to/Claude-Project-Coordinator/.build/release/project-coordinator",
       "args": []

@@ -2,6 +2,12 @@
 KnowledgeBase/projects/*.json
 KnowledgeBase/projects/*-summary.md
 !KnowledgeBase/projects/.gitkeep
+!KnowledgeBase/projects/EXAMPLE.json.sample
+
+# Analytics runtime data (keep samples only)
+KnowledgeBase/analytics/*.json
+!KnowledgeBase/analytics/.gitkeep
+!KnowledgeBase/analytics/EXAMPLE*.json
 
 # Auto-generated security configuration
 KnowledgeBase/security-config.json
@@ -11,6 +17,9 @@ KnowledgeBase/security-config.json
 xcuserdata/
 .build/
 .DS_Store
+
+# SwiftPM
+Package.resolved
 
 # Development artifacts
 test-phase1.sh

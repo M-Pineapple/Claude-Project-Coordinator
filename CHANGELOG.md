@@ -1,3 +1,33 @@
+# Changelog
+
+All notable changes to Claude Project Coordinator will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.4.0] - 2026-08-02
+
+### Added
+- Official Model Context Protocol Swift SDK (`modelcontextprotocol/swift-sdk`)
+- Library + executable split for testable core (`ProjectCoordinator` + `project-coordinator`)
+- `CPC_KNOWLEDGE_BASE` environment override for data location
+- Real Swift Testing coverage for security, migration-once, paths, and version pin
+- GitHub Actions CI (`swift build` / `swift test`)
+- Repo governance files (`AGENTS.md`, `CLAUDE.md`)
+
+### Fixed
+- Path allowlist no longer accepts the home directory via reverse prefix matching
+- Diagnostics no longer print to stdout (MCP stdio safe; logs go to stderr via `CPCLog`)
+- Startup no longer re-migrates analytics that already exist on disk
+- KnowledgeBase discovery walks upward from the executable instead of a fixed three-level climb
+- Version strings aligned to **1.4.0** across binary, `mcp.json`, and docs
+
+### Changed
+- Requires Swift 6.0+
+- Capabilities advertise tools only (removed unimplemented `resources` claim)
+- Public analytics sample replaces personal `global-tech-stats.json`
+- Removed internal release notes and ops scripts from the public tree
+
 ## [1.3.2] - 2025-07-04
 
 ### Fixed
@@ -14,13 +44,6 @@
 ### Changed
 - Migration now only runs for projects without existing analytics files
 - Improved startup performance by avoiding unnecessary saves
-
-# Changelog
-
-All notable changes to Claude Project Coordinator will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [1.3.2] - 2025-07-02
 

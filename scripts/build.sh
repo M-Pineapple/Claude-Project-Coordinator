@@ -15,10 +15,11 @@ if [ -f ".build/release/project-coordinator" ]; then
     echo "✅ Build successful!"
     echo ""
     echo "📝 Next steps:"
-    echo "1. Add the executable path to your Claude Desktop MCP settings"
+    echo "1. Add the executable path to your MCP host (Claude Desktop, Cursor, or Claude Code)"
     echo "2. The executable is located at: .build/release/project-coordinator"
-    echo "3. Restart Claude Desktop"
-    echo "4. Start using commands like 'list my projects' or 'add a new project'"
+    echo "3. Restart the MCP host"
+    echo "4. Try prompts like 'list my projects' or 'add a new project'"
+    echo "5. Optional: export CPC_KNOWLEDGE_BASE=/path/to/KnowledgeBase"
 else
     echo "❌ Build failed. Please check for errors above."
     exit 1
