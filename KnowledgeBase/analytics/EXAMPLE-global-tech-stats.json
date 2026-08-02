@@ -1,0 +1,17 @@
+{
+  "projectsUsing": {
+    "SwiftUI": ["ExampleApp"],
+    "Swift Package Manager": ["ExampleApp"],
+    "Swift": ["ExamplePackage"]
+  },
+  "lastUsed": {
+    "SwiftUI": "2026-01-01T00:00:00Z",
+    "Swift Package Manager": "2026-01-01T00:00:00Z",
+    "Swift": "2026-01-01T00:00:00Z"
+  },
+  "frameworkCounts": {
+    "SwiftUI": 1,
+    "Swift Package Manager": 1,
+    "Swift": 1
+  }
+}

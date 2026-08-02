@@ -2,77 +2,78 @@ import Foundation
 
 // MARK: - Project Model
 
-struct Project: Codable {
-    let name: String
-    let path: String
-    var description: String?
-    var status: String?
-    var notes: String?
-    var techStack: [String]
-    var lastModified: Date
-    var currentTasks: [String]
+public struct Project: Codable, Sendable {
+    public let name: String
+    public let path: String
+    public var description: String?
+    public var status: String?
+    public var notes: String?
+    public var techStack: [String]
+    public var lastModified: Date
+    public var currentTasks: [String]
+
+    public init(
+        name: String,
+        path: String,
+        description: String? = nil,
+        status: String? = nil,
+        notes: String? = nil,
+        techStack: [String] = [],
+        lastModified: Date = Date(),
+        currentTasks: [String] = []
+    ) {
+        self.name = name
+        self.path = path
+        self.description = description
+        self.status = status
+        self.notes = notes
+        self.techStack = techStack
+        self.lastModified = lastModified
+        self.currentTasks = currentTasks
+    }
 }
 
 // MARK: - Project Manager
 
-actor ProjectManager {
+public actor ProjectManager {
     private var projects: [String: Project] = [:]
     private let knowledgeBasePath: String
     private let fileManager = FileManager.default
     private var securityConfig: SecurityConfig
     private var analytics: ProjectAnalytics?
     
-    init() {
-        // Get the executable's directory and construct KnowledgeBase path relative to it
-        let executablePath = Bundle.main.executablePath ?? ""
-        let executableDir = URL(fileURLWithPath: executablePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().path
-        self.knowledgeBasePath = "\(executableDir)/KnowledgeBase"
-        
-        // Load security configuration
-        let configPath = "\(executableDir)/KnowledgeBase/security-config.json"
+    public init(knowledgeBasePath: String = KnowledgeBasePaths.resolve()) {
+        self.knowledgeBasePath = knowledgeBasePath
+        let configPath = "\(knowledgeBasePath)/security-config.json"
         self.securityConfig = SecurityConfig.load(from: configPath)
     }
     
-    func initialize() async {
-        // Create knowledge base structure
+    /// Initialise storage and migrate analytics once per project (file-existence gated).
+    public func initialize(analytics: ProjectAnalytics) async {
+        self.analytics = analytics
         createKnowledgeBaseStructure()
-        
-        // Load existing projects
         await loadProjects()
-        
-        // Initialize analytics with loaded projects
-        analytics = ProjectAnalytics(knowledgeBasePath: knowledgeBasePath)
-        
-        // Load analytics data for existing projects
-        if let analytics = analytics {
-            // Load the analytics data from disk first
-            await analytics.loadAnalytics()
-            
-            var migratedAny = false
-            
-            // Then migrate any projects that don't have analytics yet
-            for (_, project) in projects {
-                // Check if analytics FILE exists, not just in memory
-                let analyticsPath = "\(knowledgeBasePath)/projects/\(project.name)-analytics.json"
-                let fileExists = FileManager.default.fileExists(atPath: analyticsPath)
-                
-                if !fileExists {
-                    print("[CPC] Migrating \(project.name) to analytics system")
-                    _ = await analytics.migrateProject(project)
-                    migratedAny = true
-                } else {
-                    // File exists, skip migration
-                    print("[CPC] Analytics file already exists for \(project.name), skipping migration")
-                }
-            }
-            
-            // Only save if we actually migrated something
-            if migratedAny {
-                print("[CPC] Saving newly migrated analytics")
-                try? await analytics.saveAnalytics()
+        await analytics.loadAnalytics()
+
+        var migratedAny = false
+        for (_, project) in projects {
+            let analyticsPath = "\(knowledgeBasePath)/projects/\(project.name)-analytics.json"
+            let fileExists = fileManager.fileExists(atPath: analyticsPath)
+
+            if !fileExists {
+                CPCLog.info("Migrating \(project.name) to analytics system")
+                _ = await analytics.migrateProject(project)
+                migratedAny = true
             } else {
-                print("[CPC] No projects needed migration")
+                CPCLog.info("Analytics file already exists for \(project.name), skipping migration")
             }
+        }
+
+        if migratedAny {
+            CPCLog.info("Saving newly migrated analytics")
+            try? await analytics.saveAnalytics()
+        } else {
+            CPCLog.info("No projects needed migration")
         }
     }
     
@@ -242,7 +243,7 @@ actor ProjectManager {
         }
     }
     
-    func listProjects() async throws -> String {
+    public func listProjects() async throws -> String {
         guard !projects.isEmpty else {
             return """
             No projects currently tracked.
@@ -542,7 +543,7 @@ actor ProjectManager {
     // MARK: - Secure Methods (Phase 1 Security Implementation)
     
     /// Securely add a project with input validation
-    func addProjectSecure(name: String, path: String, description: String?) async throws -> String {
+    public func addProjectSecure(name: String, path: String, description: String?) async throws -> String {
         // Input validation if security is enabled
         if securityConfig.enableValidation {
             let validatedName = try SecurityValidator.validateProjectName(name)
@@ -563,7 +564,7 @@ actor ProjectManager {
     }
     
     /// Securely update project status with input validation
-    func updateProjectStatusSecure(projectName: String, status: String?, notes: String?) async throws -> String {
+    public func updateProjectStatusSecure(projectName: String, status: String?, notes: String?) async throws -> String {
         if securityConfig.enableValidation {
             let validatedName = try SecurityValidator.validateProjectName(projectName)
             let validatedStatus = try status.map {
@@ -580,7 +581,7 @@ actor ProjectManager {
     }
     
     /// Securely search code patterns with input validation
-    func searchCodePatternsSecure(pattern: String) async throws -> String {
+    public func searchCodePatternsSecure(pattern: String) async throws -> String {
         if securityConfig.enableValidation {
             let validatedPattern = try SecurityValidator.validateSearchPattern(pattern)
             return try await searchCodePatterns(pattern: validatedPattern)
@@ -590,7 +591,7 @@ actor ProjectManager {
     }
     
     /// Securely get project status with input validation
-    func getProjectStatusSecure(projectName: String) async throws -> String {
+    public func getProjectStatusSecure(projectName: String) async throws -> String {
         if securityConfig.enableValidation {
             let validatedName = try SecurityValidator.validateProjectName(projectName)
             return try await getProjectStatus(projectName: validatedName)
@@ -613,18 +614,9 @@ actor ProjectManager {
     
     // MARK: - Analytics Integration
     
-    func migrateToAnalytics(analytics: ProjectAnalytics) async {
+    /// Attach an analytics engine without re-migrating existing on-disk analytics files.
+    public func attachAnalytics(_ analytics: ProjectAnalytics) async {
         self.analytics = analytics
-        
-        // Migrate all existing projects to analytics
-        for (_, project) in projects {
-            let analyticsProject = await analytics.migrateProject(project)
-            // Record initial activity
-            await analytics.recordActivity(for: project.name, type: .accessed, description: "Project migrated to analytics")
-        }
-        
-        // Save analytics data
-        try? await analytics.saveAnalytics()
     }
     
     func updateProjectWithAnalytics(projectName: String, status: String?, notes: String?) async throws {
