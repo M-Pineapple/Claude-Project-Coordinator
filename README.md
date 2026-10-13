@@ -8,6 +8,8 @@
 
 </div>
 
+<img src="assets/demo.gif" alt="project-coordinator answering initialize and listing nine tools" width="720"/>
+
 CPC is an MCP server that gives Claude a structured, **on-disk** view of your projects: status, notes, tech stack, activity, and health. It runs on macOS beside Claude Desktop, Cursor, or Claude Code. Data never leaves your machine.
 
 **v1.4.0** · [official Swift MCP SDK](https://github.com/modelcontextprotocol/swift-sdk) · MIT · local JSON knowledge base
