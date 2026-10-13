@@ -6,6 +6,10 @@
 
 **Your local project desk for Claude.** Track Xcode and Swift work across many repos, then ask Claude what is hot, stale, or next.
 
+[![Licence: MIT](https://img.shields.io/github/license/M-Pineapple/Claude-Project-Coordinator)](LICENSE)
+[![Swift](https://img.shields.io/badge/Swift-6-F05138?logo=swift&logoColor=white)](https://www.swift.org)
+[![Stars](https://img.shields.io/github/stars/M-Pineapple/Claude-Project-Coordinator)](https://github.com/M-Pineapple/Claude-Project-Coordinator/stargazers)
+
 </div>
 
 CPC is an MCP server that gives Claude a structured, **on-disk** view of your projects: status, notes, tech stack, activity, and health. It runs on macOS beside Claude Desktop, Cursor, or Claude Code. Data never leaves your machine.
@@ -266,6 +270,20 @@ Claude-Project-Coordinator/
 ```bash
 ./scripts/repair-analytics-dates.sh
 ```
+
+---
+
+## More MCP servers by M-Pineapple
+
+Other MCP servers in this portfolio:
+
+- [CryptoAnalysisMCP](https://github.com/M-Pineapple/CryptoAnalysisMCP). Cryptocurrency technical analysis for Claude Desktop.
+- [Warp Command Runner](https://github.com/M-Pineapple/warp-command-runner). Give any chat AI a real terminal.
+- [Msty Admin MCP](https://github.com/M-Pineapple/msty-admin-mcp). Administer Msty Studio Desktop.
+- [Member Berries](https://github.com/M-Pineapple/member-berries-apple-mcp). Apple Calendar, Notes and Reminders with personality.
+- [SeaShell](https://github.com/M-Pineapple/seashell). Talk to Claude from any terminal block.
+- [TextEdit MCP](https://github.com/M-Pineapple/TextEdit-MCP). Formatted RTF documents via macOS TextEdit.
+- [HubSpot Auditor](https://github.com/M-Pineapple/hubspot-auditor). Read-only HubSpot portal audit.
 
 ---
 
