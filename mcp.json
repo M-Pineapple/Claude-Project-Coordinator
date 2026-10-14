@@ -1,6 +1,6 @@
 {
   "name": "project-coordinator",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "MCP server for managing and coordinating Xcode/Swift projects",
   "author": "Pineapple",
   "license": "MIT",
