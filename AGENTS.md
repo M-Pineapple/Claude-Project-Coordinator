@@ -6,11 +6,11 @@ boundary. Public MIT under M-Pineapple.
 
 ## Governance
 
-Read `~/Github/cv-agent-governance/AGENTS.md` first. Closest-file-wins: this file
+Follow the maintainer's internal engineering SOP. Closest-file-wins: this file
 wins for repo-specific rules.
 
-Memory namespace for this repo: `dev-cpc` (never reserved trading tags — see
-`cv-agent-governance/skills/memory-tagging/SKILL.md`).
+Memory namespace for this repo: `dev-cpc` (never use reserved trading tags; see the
+maintainer's internal memory-tagging rules).
 
 ## Hard boundaries
 
