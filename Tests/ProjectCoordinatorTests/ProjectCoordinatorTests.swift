@@ -115,9 +115,9 @@ struct AnalyticsMigrationTests {
 
 @Suite("Version")
 struct VersionTests {
-    @Test("version string is 1.4.1")
+    @Test("version string is 1.4.2")
     func versionPin() {
-        #expect(CPCVersion.string == "1.4.1")
+        #expect(CPCVersion.string == "1.4.2")
         #expect(CPCVersion.serverName == "project-coordinator")
     }
 }
