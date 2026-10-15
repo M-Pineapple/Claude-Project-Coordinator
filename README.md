@@ -9,6 +9,7 @@
 [![Licence: MIT](https://img.shields.io/github/license/M-Pineapple/Claude-Project-Coordinator)](LICENSE)
 [![Swift](https://img.shields.io/badge/Swift-6-F05138?logo=swift&logoColor=white)](https://www.swift.org)
 [![Stars](https://img.shields.io/github/stars/M-Pineapple/Claude-Project-Coordinator)](https://github.com/M-Pineapple/Claude-Project-Coordinator/stargazers)
+[![M-Pineapple/Claude-Project-Coordinator MCP server](https://glama.ai/mcp/servers/M-Pineapple/Claude-Project-Coordinator/badges/score.svg)](https://glama.ai/mcp/servers/M-Pineapple/Claude-Project-Coordinator)
 
 </div>
 
