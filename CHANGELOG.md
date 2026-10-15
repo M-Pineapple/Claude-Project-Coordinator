@@ -5,6 +5,11 @@ All notable changes to Claude Project Coordinator will be documented in this fil
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+- CI: workflow token limited to `contents: read` and actions pinned to commit SHAs (#13), with a test that checks both.
+
 ## [1.4.1] - 2026-10-15
 
 ### Changed
