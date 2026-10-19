@@ -21,6 +21,37 @@ CPC is an MCP server that gives Claude a structured, **on-disk** view of your pr
 
 ---
 
+## Quick start
+
+Needs macOS 13+, Swift 6.0+ (Xcode 16+) and an MCP host (Claude Desktop, Cursor or Claude Code).
+
+1. Build:
+
+   ```bash
+   git clone https://github.com/M-Pineapple/Claude-Project-Coordinator.git
+   cd Claude-Project-Coordinator
+   swift build -c release
+   ```
+
+2. Add the server to your MCP host config, using the absolute path to the binary:
+
+   ```json
+   {
+     "mcpServers": {
+       "project-coordinator": {
+         "command": "/absolute/path/to/Claude-Project-Coordinator/.build/release/project-coordinator",
+         "args": []
+       }
+     }
+   }
+   ```
+
+3. Restart the host and ask: "Add my WeatherApp at ~/Developer/WeatherApp", then "Which projects need my attention?"
+
+Projects must live under one of the [allowed roots](#security-configuration). Full details are in [Installation](#installation).
+
+---
+
 ## Who is this for?
 
 Pick the path that matches you. Same binary, different first questions.
