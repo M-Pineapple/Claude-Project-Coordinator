@@ -1,0 +1,12 @@
+.build
+.git
+.swiftpm
+Package.resolved
+**/.DS_Store
+KnowledgeBase/security-config.json
+KnowledgeBase/projects/*
+!KnowledgeBase/projects/.gitkeep
+!KnowledgeBase/projects/EXAMPLE.json.sample
+KnowledgeBase/analytics/*
+!KnowledgeBase/analytics/.gitkeep
+!KnowledgeBase/analytics/EXAMPLE-global-tech-stats.json
