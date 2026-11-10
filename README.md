@@ -101,7 +101,7 @@ Put only a `memoryRef` (opaque id or tag) on a card. DPC never calls a memory se
 
 DPC is a local stdio MCP server. It stores live project state (column, kind, counts, cards) as JSON. It does not host your data. It does not replace a memory or RAG product.
 
-**v2.0.1** · [official Swift MCP SDK](https://github.com/modelcontextprotocol/swift-sdk) · Apache 2.0 · local JSON knowledge base
+**v2.0.2** · [official Swift MCP SDK](https://github.com/modelcontextprotocol/swift-sdk) · Apache 2.0 · local JSON knowledge base
 
 ---
 
