@@ -601,14 +601,26 @@ public actor ProjectManager {
                 }
             }
         )
+        // Bind first. If the port is busy, the token file stays as the running server knows it.
+        try server.start()
         // The token now persists across restarts (#29), so a fresh start only rotates when asked.
         if rotate {
-            try server.rotateToken()
+            do {
+                try server.rotateToken()
+            } catch {
+                server.stop()
+                throw error
+            }
         }
-        try server.start()
         deskServer = server
         try await regenerateDesk()
         return Self.deskServerMessage(server: server, rotated: rotate)
+    }
+
+    /// Stop this process's desk server if one is running. Used by tests.
+    func stopDeskServer() {
+        deskServer?.stop()
+        deskServer = nil
     }
 
     static func deskServerMessage(server: DeskServer, rotated: Bool) -> String {

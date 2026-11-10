@@ -172,8 +172,18 @@ public final class DeskServer: @unchecked Sendable {
         self.htmlProvider = htmlProvider
         self.onMove = onMove
         self.onAdd = onAdd
-        let desk = URL(fileURLWithPath: knowledgeBasePath).appendingPathComponent("desk", isDirectory: true)
-        try FileManager.default.createDirectory(at: desk, withIntermediateDirectories: true)
+        let kbURL = URL(fileURLWithPath: knowledgeBasePath, isDirectory: true)
+        let desk = kbURL.appendingPathComponent("desk", isDirectory: true)
+        try FileManager.default.createDirectory(at: kbURL, withIntermediateDirectories: true)
+        // A new desk directory is private. An existing one keeps its mode, with a warning if it is unsafe.
+        try FileManager.default.createDirectory(
+            at: desk,
+            withIntermediateDirectories: true,
+            attributes: [.posixPermissions: 0o700]
+        )
+        if let warning = Self.deskDirectoryWarning(desk) {
+            CPCLog.warning("Desk directory \(warning). The write token file lives there.")
+        }
         let tokenURL = desk.appendingPathComponent(".write-token")
         self.tokenFileURL = tokenURL
         // Reuse a valid persisted token so session cookies survive a restart (#29).
@@ -595,8 +605,22 @@ public final class DeskServer: @unchecked Sendable {
         case rejected(TokenFileRejection)
     }
 
+    /// Reason the desk directory is unsafe to hold the token file, or nil when it is fine.
+    /// Checks the path itself with lstat, so a symlinked directory is reported.
+    public static func deskDirectoryWarning(_ url: URL) -> String? {
+        var info = stat()
+        let result = url.path.withCString { pointer in
+            lstat(pointer, &info)
+        }
+        guard result == 0 else { return "could not be checked" }
+        let mode = UInt32(info.st_mode)
+        if mode & 0o170000 == 0o120000 { return "is a symlink" }
+        if mode & 0o022 != 0 { return "is writable by group or others" }
+        return nil
+    }
+
     /// Read a persisted write token without following symlinks.
-    /// Valid means a regular file owned by this user, no group or other permission bits,
+    /// Valid means a regular file owned by this user, mode exactly 0600,
     /// and exactly 64 lowercase hex characters (one trailing newline tolerated).
     public static func loadTokenFile(url: URL) -> TokenFileLoad {
         let fd = url.path.withCString { pointer in
@@ -614,7 +638,7 @@ public final class DeskServer: @unchecked Sendable {
         let mode = UInt32(info.st_mode)
         guard mode & 0o170000 == 0o100000 else { return .rejected(.notRegularFile) }
         guard info.st_uid == getuid() else { return .rejected(.wrongOwner) }
-        guard mode & 0o077 == 0 else { return .rejected(.insecurePermissions) }
+        guard mode & 0o777 == 0o600 else { return .rejected(.insecurePermissions) }
         var buffer = [UInt8](repeating: 0, count: 80)
         let count = buffer.withUnsafeMutableBytes { pointer in
             read(fd, pointer.baseAddress, pointer.count)
@@ -646,8 +670,10 @@ public final class DeskServer: @unchecked Sendable {
         let written = bytes.withUnsafeBytes { pointer in
             write(fd, pointer.baseAddress, bytes.count)
         }
+        // Flush before rename so a power loss cannot leave an empty token file in place.
+        let synced = fsync(fd)
         close(fd)
-        guard written == bytes.count else {
+        guard written == bytes.count, synced == 0 else {
             try? FileManager.default.removeItem(at: tmp)
             throw DeskServerError.tokenFileFailed
         }

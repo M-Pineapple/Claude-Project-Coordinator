@@ -178,15 +178,82 @@ struct TokenPersistenceTests {
         let desk = try TempDesk.make()
         defer { desk.cleanup() }
         let url = tokenFile(desk.kb)
-        let first = try await startManager(desk: desk, rotate: false)
+        let (firstManager, first) = try await startManager(desk: desk, rotate: false)
         #expect(!first.contains("Write token rotated."))
         let initial = try #require(token(at: url))
-        _ = try await startManager(desk: desk, rotate: false)
+        await firstManager.stopDeskServer()
+        let (secondManager, _) = try await startManager(desk: desk, rotate: false)
         #expect(token(at: url) == initial)
-        let rotated = try await startManager(desk: desk, rotate: true)
+        await secondManager.stopDeskServer()
+        let (thirdManager, rotated) = try await startManager(desk: desk, rotate: true)
         #expect(rotated.contains("Write token rotated."))
         let after = try #require(token(at: url))
         #expect(after != initial)
+        await thirdManager.stopDeskServer()
+    }
+
+    @Test("a rotate start that cannot bind leaves the token file alone")
+    func rotateAfterBindOnly() async throws {
+        let desk = try TempDesk.make()
+        defer { desk.cleanup() }
+        let url = tokenFile(desk.kb)
+        let (running, _) = try await startManager(desk: desk, rotate: false)
+        let live = try #require(token(at: url))
+        let config = SecurityConfig.load(from: desk.kb.appendingPathComponent("security-config.json").path)
+        let busyPort = try #require(config.deskPort)
+        let analytics = ProjectAnalytics(knowledgeBasePath: desk.kb.path)
+        let second = ProjectManager(knowledgeBasePath: desk.kb.path, extraAllowedBases: [desk.work.path])
+        await second.initialize(analytics: analytics)
+        await #expect(throws: DeskServerError.portInUse(busyPort)) {
+            _ = try await second.startDeskServer(rotate: true)
+        }
+        #expect(token(at: url) == live)
+        await running.stopDeskServer()
+    }
+
+    @Test("modes other than exactly 0600 are rejected")
+    func exactModeOnly() throws {
+        for mode: mode_t in [0o400, 0o500, 0o700, 0o640, 0o604] {
+            let desk = try TempDesk.make()
+            defer { desk.cleanup() }
+            let first = try makeServer(desk.kb)
+            let url = tokenFile(desk.kb)
+            #expect(chmod(url.path, mode) == 0)
+            #expect(DeskServer.loadTokenFile(url: url) == .rejected(.insecurePermissions))
+            let second = try makeServer(desk.kb)
+            #expect(second.token != first.token)
+            #expect(try perms(url) == 0o600)
+        }
+    }
+
+    @Test("a new desk directory is created 0700")
+    func newDeskDirectoryPrivate() throws {
+        let desk = try TempDesk.make()
+        defer { desk.cleanup() }
+        _ = try makeServer(desk.kb)
+        let deskDir = desk.kb.appendingPathComponent("desk")
+        #expect(try perms(deskDir) == 0o700)
+        #expect(DeskServer.deskDirectoryWarning(deskDir) == nil)
+    }
+
+    @Test("a symlinked or group writable desk directory is reported")
+    func unsafeDeskDirectoryWarned() throws {
+        let desk = try TempDesk.make()
+        defer { desk.cleanup() }
+        let deskDir = desk.kb.appendingPathComponent("desk")
+        let real = desk.root.appendingPathComponent("real-desk")
+        try FileManager.default.createDirectory(at: real, withIntermediateDirectories: true)
+        try FileManager.default.createSymbolicLink(at: deskDir, withDestinationURL: real)
+        #expect(DeskServer.deskDirectoryWarning(deskDir) == "is a symlink")
+
+        let other = try TempDesk.make()
+        defer { other.cleanup() }
+        let otherDesk = other.kb.appendingPathComponent("desk")
+        try FileManager.default.createDirectory(at: otherDesk, withIntermediateDirectories: true)
+        #expect(chmod(otherDesk.path, 0o775) == 0)
+        #expect(DeskServer.deskDirectoryWarning(otherDesk) == "is writable by group or others")
+        #expect(chmod(otherDesk.path, 0o755) == 0)
+        #expect(DeskServer.deskDirectoryWarning(otherDesk) == nil)
     }
 
     private func token(at url: URL) -> String? {
@@ -195,7 +262,7 @@ struct TokenPersistenceTests {
     }
 
     /// Each call is a separate manager, as a separate process would be. Ports are random to avoid clashes.
-    private func startManager(desk: TempDesk, rotate: Bool) async throws -> String {
+    private func startManager(desk: TempDesk, rotate: Bool) async throws -> (ProjectManager, String) {
         var lastError: Error?
         for _ in 0..<8 {
             let port = UInt16.random(in: 49_100...49_700)
@@ -213,7 +280,7 @@ struct TokenPersistenceTests {
             let manager = ProjectManager(knowledgeBasePath: desk.kb.path, extraAllowedBases: [desk.work.path])
             await manager.initialize(analytics: analytics)
             do {
-                return try await manager.startDeskServer(rotate: rotate)
+                return (manager, try await manager.startDeskServer(rotate: rotate))
             } catch let error as DeskServerError {
                 if case .portInUse = error {
                     lastError = error
