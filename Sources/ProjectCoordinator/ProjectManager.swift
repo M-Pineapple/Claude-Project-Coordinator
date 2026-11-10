@@ -601,10 +601,14 @@ public actor ProjectManager {
                 }
             }
         )
+        // The token now persists across restarts (#29), so a fresh start only rotates when asked.
+        if rotate {
+            try server.rotateToken()
+        }
         try server.start()
         deskServer = server
         try await regenerateDesk()
-        return Self.deskServerMessage(server: server, rotated: false)
+        return Self.deskServerMessage(server: server, rotated: rotate)
     }
 
     static func deskServerMessage(server: DeskServer, rotated: Bool) -> String {
@@ -614,7 +618,8 @@ public actor ProjectManager {
         Sign-in URL (valid once, for 10 minutes): \(server.signInURL)
         Write token file: \(server.tokenFileURL.path) (mode 0600)
         Port is fixed. If it is busy, start fails. Set DPC_DESK_PORT or security-config deskPort.
-        The session cookie is the write token. Rotation writes a new token file and invalidates existing cookies.
+        The session cookie is the write token. It persists in the token file, so a restart keeps signed-in sessions.
+        Rotation writes a new token file and invalidates existing cookies.
         Writes accept that cookie or the X-DPC-Token header.
         Static KnowledgeBase/desk/index.html still works without this server.
         """

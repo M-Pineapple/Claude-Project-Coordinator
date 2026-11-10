@@ -146,7 +146,9 @@ The desk page is a local file by default. For drag-and-drop, and to pin it in th
 
 The port is fixed at **47821**. Change it with `DPC_DESK_PORT` or `deskPort` in `security-config.json`. If that port is busy, start fails with a clear error. It does not pick a random port.
 
-Call `start_desk_server` again while it is running to mint a fresh sign-in code without rotating the write token. Rotate the write token with `start_desk_server` `rotate=true`, or `dpc start_desk_server --rotate`. Open the new sign-in URL once so the Dock app cookie updates.
+The write token persists in `KnowledgeBase/desk/.write-token`, so restarting the desk server keeps the Dock app signed in. On start the server reuses that file only when it is a regular file owned by you, mode 0600, holding a 64 character hex token. Otherwise it mints a new token, replaces the file and logs a warning, and you open a new sign-in URL once.
+
+Call `start_desk_server` again while it is running to mint a fresh sign-in code without rotating the write token. Rotate the write token with `start_desk_server` `rotate=true`, or `dpc start_desk_server --rotate`, on a running or a fresh server. Open the new sign-in URL once so the Dock app cookie updates.
 
 ---
 

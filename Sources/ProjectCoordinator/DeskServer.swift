@@ -169,14 +169,27 @@ public final class DeskServer: @unchecked Sendable {
         try Self.validateBindHost(bindHost)
         self.bindHost = bindHost
         self.port = port
-        self.token = Self.randomToken()
         self.htmlProvider = htmlProvider
         self.onMove = onMove
         self.onAdd = onAdd
         let desk = URL(fileURLWithPath: knowledgeBasePath).appendingPathComponent("desk", isDirectory: true)
         try FileManager.default.createDirectory(at: desk, withIntermediateDirectories: true)
-        self.tokenFileURL = desk.appendingPathComponent(".write-token")
-        try Self.writeTokenFile(token: token, url: tokenFileURL)
+        let tokenURL = desk.appendingPathComponent(".write-token")
+        self.tokenFileURL = tokenURL
+        // Reuse a valid persisted token so session cookies survive a restart (#29).
+        // Mint only when the file is missing or fails validation. Rotation stays explicit.
+        let load = Self.loadTokenFile(url: tokenURL)
+        switch load {
+        case .valid(let existing):
+            self.token = existing
+        case .missing, .rejected:
+            if case .rejected(let reason) = load {
+                CPCLog.warning("Write token file rejected (\(reason.rawValue)). Minting a new token. Open a new sign-in URL once.")
+            }
+            let fresh = Self.randomToken()
+            try Self.writeTokenFile(token: fresh, url: tokenURL)
+            self.token = fresh
+        }
         _ = mintSignInCode()
     }
 
@@ -566,6 +579,56 @@ public final class DeskServer: @unchecked Sendable {
             bytes.append(UInt8.random(in: 0...255, using: &rng))
         }
         return bytes.map { String(format: "%02x", $0) }.joined()
+    }
+
+    public enum TokenFileRejection: String, Sendable, Equatable {
+        case notRegularFile = "not a regular file"
+        case wrongOwner = "not owned by the current user"
+        case insecurePermissions = "permissions are not 0600"
+        case malformed = "contents are not a 64 character hex token"
+        case unreadable = "could not be read"
+    }
+
+    public enum TokenFileLoad: Sendable, Equatable {
+        case valid(String)
+        case missing
+        case rejected(TokenFileRejection)
+    }
+
+    /// Read a persisted write token without following symlinks.
+    /// Valid means a regular file owned by this user, no group or other permission bits,
+    /// and exactly 64 lowercase hex characters (one trailing newline tolerated).
+    public static func loadTokenFile(url: URL) -> TokenFileLoad {
+        let fd = url.path.withCString { pointer in
+            open(pointer, O_RDONLY | O_NOFOLLOW | O_NONBLOCK)
+        }
+        if fd < 0 {
+            let code = errno
+            if code == ENOENT { return .missing }
+            if code == ELOOP { return .rejected(.notRegularFile) }
+            return .rejected(.unreadable)
+        }
+        defer { close(fd) }
+        var info = stat()
+        guard fstat(fd, &info) == 0 else { return .rejected(.unreadable) }
+        let mode = UInt32(info.st_mode)
+        guard mode & 0o170000 == 0o100000 else { return .rejected(.notRegularFile) }
+        guard info.st_uid == getuid() else { return .rejected(.wrongOwner) }
+        guard mode & 0o077 == 0 else { return .rejected(.insecurePermissions) }
+        var buffer = [UInt8](repeating: 0, count: 80)
+        let count = buffer.withUnsafeMutableBytes { pointer in
+            read(fd, pointer.baseAddress, pointer.count)
+        }
+        guard count >= 0 else { return .rejected(.unreadable) }
+        var bytes = Array(buffer.prefix(count))
+        if bytes.last == 0x0A { bytes.removeLast() }
+        guard isValidToken(bytes) else { return .rejected(.malformed) }
+        return .valid(String(decoding: bytes, as: UTF8.self))
+    }
+
+    static func isValidToken(_ bytes: [UInt8]) -> Bool {
+        guard bytes.count == 64 else { return false }
+        return bytes.allSatisfy { (0x30...0x39).contains($0) || (0x61...0x66).contains($0) }
     }
 
     static func writeTokenFile(token: String, url: URL) throws {

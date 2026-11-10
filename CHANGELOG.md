@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- The desk server no longer mints a new write token on every start. It reuses `desk/.write-token` when that file is a regular file (not a symlink) owned by the current user, mode 0600, holding exactly 64 lowercase hex characters. A missing file mints a token. A file that fails any check is never trusted: it is replaced with a fresh 0600 token and a warning goes to stderr without the token. Session cookies from before a restart keep working, so the Dock app no longer shows "Move failed" after a restart (#29).
+- `dpc start_desk_server --rotate` and `start_desk_server rotate=true` now rotate on a fresh start too. Rotation stays the only way to replace a valid token.
+
 ## [2.0.1] - 2026-11-10
 
 ### Added
