@@ -2,7 +2,7 @@ import Foundation
 
 /// Single source of truth for the published DPC version.
 public enum CPCVersion {
-    public static let string = "2.0.0"
+    public static let string = "2.0.1"
     /// Hosts still key on this name. Prefer `preferredServerName` in new configs.
     public static let serverName = "project-coordinator"
     public static let preferredServerName = "dev-project-coordinator"
