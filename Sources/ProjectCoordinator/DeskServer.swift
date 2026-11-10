@@ -169,14 +169,37 @@ public final class DeskServer: @unchecked Sendable {
         try Self.validateBindHost(bindHost)
         self.bindHost = bindHost
         self.port = port
-        self.token = Self.randomToken()
         self.htmlProvider = htmlProvider
         self.onMove = onMove
         self.onAdd = onAdd
-        let desk = URL(fileURLWithPath: knowledgeBasePath).appendingPathComponent("desk", isDirectory: true)
-        try FileManager.default.createDirectory(at: desk, withIntermediateDirectories: true)
-        self.tokenFileURL = desk.appendingPathComponent(".write-token")
-        try Self.writeTokenFile(token: token, url: tokenFileURL)
+        let kbURL = URL(fileURLWithPath: knowledgeBasePath, isDirectory: true)
+        let desk = kbURL.appendingPathComponent("desk", isDirectory: true)
+        try FileManager.default.createDirectory(at: kbURL, withIntermediateDirectories: true)
+        // A new desk directory is private. An existing one keeps its mode, with a warning if it is unsafe.
+        try FileManager.default.createDirectory(
+            at: desk,
+            withIntermediateDirectories: true,
+            attributes: [.posixPermissions: 0o700]
+        )
+        if let warning = Self.deskDirectoryWarning(desk) {
+            CPCLog.warning("Desk directory \(warning). The write token file lives there.")
+        }
+        let tokenURL = desk.appendingPathComponent(".write-token")
+        self.tokenFileURL = tokenURL
+        // Reuse a valid persisted token so session cookies survive a restart (#29).
+        // Mint only when the file is missing or fails validation. Rotation stays explicit.
+        let load = Self.loadTokenFile(url: tokenURL)
+        switch load {
+        case .valid(let existing):
+            self.token = existing
+        case .missing, .rejected:
+            if case .rejected(let reason) = load {
+                CPCLog.warning("Write token file rejected (\(reason.rawValue)). Minting a new token. Open a new sign-in URL once.")
+            }
+            let fresh = Self.randomToken()
+            try Self.writeTokenFile(token: fresh, url: tokenURL)
+            self.token = fresh
+        }
         _ = mintSignInCode()
     }
 
@@ -568,6 +591,70 @@ public final class DeskServer: @unchecked Sendable {
         return bytes.map { String(format: "%02x", $0) }.joined()
     }
 
+    public enum TokenFileRejection: String, Sendable, Equatable {
+        case notRegularFile = "not a regular file"
+        case wrongOwner = "not owned by the current user"
+        case insecurePermissions = "permissions are not 0600"
+        case malformed = "contents are not a 64 character hex token"
+        case unreadable = "could not be read"
+    }
+
+    public enum TokenFileLoad: Sendable, Equatable {
+        case valid(String)
+        case missing
+        case rejected(TokenFileRejection)
+    }
+
+    /// Reason the desk directory is unsafe to hold the token file, or nil when it is fine.
+    /// Checks the path itself with lstat, so a symlinked directory is reported.
+    public static func deskDirectoryWarning(_ url: URL) -> String? {
+        var info = stat()
+        let result = url.path.withCString { pointer in
+            lstat(pointer, &info)
+        }
+        guard result == 0 else { return "could not be checked" }
+        let mode = UInt32(info.st_mode)
+        if mode & 0o170000 == 0o120000 { return "is a symlink" }
+        if mode & 0o022 != 0 { return "is writable by group or others" }
+        return nil
+    }
+
+    /// Read a persisted write token without following symlinks.
+    /// Valid means a regular file owned by this user, mode exactly 0600,
+    /// and exactly 64 lowercase hex characters (one trailing newline tolerated).
+    public static func loadTokenFile(url: URL) -> TokenFileLoad {
+        let fd = url.path.withCString { pointer in
+            open(pointer, O_RDONLY | O_NOFOLLOW | O_NONBLOCK)
+        }
+        if fd < 0 {
+            let code = errno
+            if code == ENOENT { return .missing }
+            if code == ELOOP { return .rejected(.notRegularFile) }
+            return .rejected(.unreadable)
+        }
+        defer { close(fd) }
+        var info = stat()
+        guard fstat(fd, &info) == 0 else { return .rejected(.unreadable) }
+        let mode = UInt32(info.st_mode)
+        guard mode & 0o170000 == 0o100000 else { return .rejected(.notRegularFile) }
+        guard info.st_uid == getuid() else { return .rejected(.wrongOwner) }
+        guard mode & 0o777 == 0o600 else { return .rejected(.insecurePermissions) }
+        var buffer = [UInt8](repeating: 0, count: 80)
+        let count = buffer.withUnsafeMutableBytes { pointer in
+            read(fd, pointer.baseAddress, pointer.count)
+        }
+        guard count >= 0 else { return .rejected(.unreadable) }
+        var bytes = Array(buffer.prefix(count))
+        if bytes.last == 0x0A { bytes.removeLast() }
+        guard isValidToken(bytes) else { return .rejected(.malformed) }
+        return .valid(String(decoding: bytes, as: UTF8.self))
+    }
+
+    static func isValidToken(_ bytes: [UInt8]) -> Bool {
+        guard bytes.count == 64 else { return false }
+        return bytes.allSatisfy { (0x30...0x39).contains($0) || (0x61...0x66).contains($0) }
+    }
+
     static func writeTokenFile(token: String, url: URL) throws {
         let directory = url.deletingLastPathComponent()
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
@@ -583,8 +670,10 @@ public final class DeskServer: @unchecked Sendable {
         let written = bytes.withUnsafeBytes { pointer in
             write(fd, pointer.baseAddress, bytes.count)
         }
+        // Flush before rename so a power loss cannot leave an empty token file in place.
+        let synced = fsync(fd)
         close(fd)
-        guard written == bytes.count else {
+        guard written == bytes.count, synced == 0 else {
             try? FileManager.default.removeItem(at: tmp)
             throw DeskServerError.tokenFileFailed
         }
